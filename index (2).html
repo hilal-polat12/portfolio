@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hilal — 3D & Mechanical Design Portfolio</title>
+<meta name="description" content="Freelance 3D and mechanical design portfolio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --black:#141414;
+    --red:#e0271b;
+    --red-dark:#b31e14;
+    --white:#ffffff;
+    --card-bg:#141414;
+    --line:rgba(255,255,255,0.16);
+    --ink:#ffffff;
+    --ink-soft:rgba(255,255,255,0.72);
+    --ink-faint:rgba(255,255,255,0.55);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    font-family:'Inter', sans-serif;
+    background:var(--red);
+    color:var(--ink);
+  }
+  a{color:inherit;text-decoration:none;}
+  ul{list-style:none;}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 32px;}
+
+  /* ---------- top bar ---------- */
+  .topbar{
+    background:var(--black);
+    color:var(--white);
+  }
+  .topbar-inner{
+    display:flex;align-items:center;justify-content:space-between;
+    height:76px;
+  }
+  .logo{
+    font-size:22px;font-weight:700;letter-spacing:-0.01em;
+  }
+  .logo span{color:var(--red);}
+  .top-right{display:flex;align-items:center;gap:22px;}
+  .lang{
+    display:flex;align-items:center;gap:6px;
+    font-size:14px;color:rgba(255,255,255,0.85);
+    cursor:pointer;
+  }
+  .lang svg{width:18px;height:18px;stroke:currentColor;}
+  .btn-contact{
+    background:var(--black);
+    color:var(--white);
+    border:1px solid rgba(255,255,255,0.25);
+    font-size:14px;font-weight:600;
+    padding:11px 22px;
+    border-radius:4px;
+    transition:background .15s;
+  }
+  .btn-contact:hover{background:#000;}
+
+  .navbar{
+    background:var(--black);
+    border-top:1px solid rgba(255,255,255,0.12);
+  }
+  .navbar-inner{
+    display:flex;gap:36px;
+    height:52px;align-items:center;
+  }
+  .navbar a{
+    font-size:14.5px;font-weight:500;
+    color:var(--white);
+    display:flex;align-items:center;gap:5px;
+    transition:opacity .15s;
+    opacity:0.85;
+  }
+  .navbar a:hover{opacity:1;}
+  .navbar a.active{opacity:1;}
+  .navbar a svg{width:13px;height:13px;stroke:currentColor;opacity:0.6;}
+
+  /* ---------- hero ---------- */
+  .hero{
+    background:var(--red);
+    padding:56px 0;
+  }
+  .hero h1{
+    font-size:clamp(28px,3.4vw,38px);
+    font-weight:700;
+    letter-spacing:-0.01em;
+    color:var(--black);
+  }
+  .hero h1 span{color:var(--black);}
+
+  /* ---------- section ---------- */
+  section.category{
+    padding:56px 0;
+    border-bottom:1px solid rgba(0,0,0,0.28);
+  }
+  .cat-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    margin-bottom:24px;
+  }
+  .cat-head h2{
+    font-size:23px;font-weight:700;
+    color:var(--black);
+  }
+  .cat-count{
+    font-size:13.5px;color:rgba(20,20,20,0.65);
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:20px;
+  }
+  .card{
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    background:var(--card-bg);
+    transition:box-shadow .18s, border-color .18s;
+    position:relative;
+  }
+  .card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.35);border-color:rgba(255,255,255,0.3);}
+  .thumb{
+    aspect-ratio:4/3;
+    background:
+      repeating-linear-gradient(45deg, #1c1c1c, #1c1c1c 10px, #141414 10px, #141414 20px);
+    display:flex;align-items:center;justify-content:center;
+    position:relative;
+  }
+  .thumb span{
+    font-size:12.5px;color:rgba(255,255,255,0.7);font-weight:500;
+    background:rgba(0,0,0,0.55);
+    padding:4px 10px;border-radius:4px;
+  }
+  .thumb-img{background:#fff;}
+  .thumb-img img{width:100%;height:100%;object-fit:contain;padding:6px;}
+
+    position:absolute;top:10px;right:10px;
+    width:32px;height:32px;border-radius:50%;
+    background:rgba(255,255,255,0.15);
+    display:flex;align-items:center;justify-content:center;
+    color:var(--white);
+    opacity:0;transition:opacity .15s;
+  }
+  .card:hover .save-btn{opacity:1;}
+  .save-btn svg{width:16px;height:16px;stroke:currentColor;fill:none;}
+  .card-body{padding:14px 16px 16px;}
+  .card-tag{
+    font-size:11.5px;font-weight:600;color:var(--red);
+    text-transform:uppercase;letter-spacing:0.04em;
+    display:block;margin-bottom:6px;
+  }
+  .card-body h3{
+    font-size:15px;font-weight:600;margin-bottom:6px;
+    line-height:1.3;color:var(--ink);
+  }
+  .card-body p{
+    font-size:13px;color:var(--ink-soft);line-height:1.5;margin-bottom:10px;
+  }
+  .card-meta{
+    display:flex;justify-content:space-between;
+    font-size:12px;color:var(--ink-faint);
+    border-top:1px solid var(--line);
+    padding-top:10px;
+  }
+
+  /* ---------- about ---------- */
+  .about{
+    padding:56px 0;
+    background:var(--red);
+    border-bottom:1px solid rgba(0,0,0,0.28);
+  }
+  .about-grid{
+    display:grid;grid-template-columns:1.2fr 1fr;gap:48px;
+  }
+  .about h2{font-size:23px;font-weight:700;margin-bottom:16px;color:var(--black);}
+  .about p{color:rgba(20,20,20,0.78);font-size:15px;margin-bottom:14px;line-height:1.65;}
+  .spec-card{
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:22px 24px;
+  }
+  .spec-row{
+    display:flex;justify-content:space-between;
+    padding:12px 0;
+    border-bottom:1px solid var(--line);
+    font-size:14px;
+  }
+  .spec-row:last-child{border-bottom:none;}
+  .spec-row span:first-child{color:var(--ink-faint);}
+  .spec-row span:last-child{font-weight:600;text-align:right;color:var(--ink);}
+
+  /* ---------- contact ---------- */
+  .contact{padding:56px 0;background:var(--red);}
+  .contact h2{font-size:23px;font-weight:700;margin-bottom:8px;color:var(--black);}
+  .contact p{color:rgba(20,20,20,0.78);font-size:15px;margin-bottom:28px;}
+  .contact-grid{
+    display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
+  }
+  .contact-grid.contact-grid-2{grid-template-columns:repeat(2,1fr);max-width:640px;}
+  .contact-card{
+    background:var(--card-bg);
+    border:1px solid var(--line);
+    border-radius:6px;
+    padding:20px;
+    display:flex;align-items:center;gap:14px;
+    transition:border-color .15s;
+  }
+  .contact-card:hover{border-color:var(--white);}
+  .contact-card .icon{
+    width:40px;height:40px;border-radius:50%;
+    background:rgba(255,255,255,0.08);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .contact-card .icon svg{width:18px;height:18px;stroke:var(--red);fill:none;}
+  .contact-card .label{font-size:11.5px;color:var(--ink-faint);text-transform:uppercase;letter-spacing:0.04em;}
+  .contact-card .value{font-size:14.5px;font-weight:600;color:var(--ink);}
+
+  footer{
+    background:var(--black);
+    color:rgba(255,255,255,0.55);
+    font-size:12.5px;
+    padding:22px 0;
+  }
+  footer .wrap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+
+  @media (max-width:1000px){
+    .grid{grid-template-columns:repeat(2,1fr);}
+    .about-grid{grid-template-columns:1fr;}
+    .contact-grid{grid-template-columns:1fr;}
+    .contact-grid.contact-grid-2{grid-template-columns:1fr;max-width:none;}
+  }
+  @media (max-width:640px){
+    .grid{grid-template-columns:1fr;}
+    .navbar-inner{overflow-x:auto;gap:22px;}
+    .topbar-inner{height:auto;min-height:64px;padding:12px 0;gap:12px;flex-wrap:wrap;}
+    .logo{font-size:19px;}
+    .top-right{gap:12px;}
+    .btn-contact{padding:9px 16px;font-size:13px;}
+    .wrap{padding:0 20px;}
+    .cat-head h2{font-size:20px;}
+    .contact-card{padding:16px;}
+  }
+  @media (max-width:400px){
+    .lang{font-size:0;gap:0;}
+    .lang svg{width:20px;height:20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap topbar-inner">
+    <div class="logo">Hilal Polat</div>
+    <div class="top-right">
+      <div class="lang">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 2.5 15.3 0 18M12 3c-2.5 2.7-2.5 15.3 0 18"/></svg>
+        EN
+      </div>
+      <a href="#contact" class="btn-contact">Contact</a>
+    </div>
+  </div>
+  <div class="navbar">
+    <div class="wrap navbar-inner">
+      <a href="#automotive" class="active">Automotive Parts</a>
+      <a href="#machine">Machine Parts</a>
+      <a href="#aircraft">Aircraft Parts</a>
+      <a href="#home-decor">Home&amp;Decoration</a>
+      <a href="#miniature">Miniature&amp;Tabletop</a>
+      <a href="#about">About</a>
+    </div>
+  </div>
+</div>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>Mechanical &amp; Industrial &amp; <span>3D Design</span> Projects</h1>
+  </div>
+</div>
+
+<main>
+  <section class="category" id="automotive">
+    <div class="wrap">
+      <div class="cat-head">
+        <h2>Automotive Parts</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="thumb"><span>Add image</span><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Client name</span>
+            <h3>Project title</h3>
+            <p>Short summary — mechanism, load case, outcome.</p>
+            <div class="card-meta"><span>Tool</span><span>Year</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="thumb"><span>Add image</span><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Client name</span>
+            <h3>Project title</h3>
+            <p>Short summary — mechanism, load case, outcome.</p>
+            <div class="card-meta"><span>Tool</span><span>Year</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="category" id="machine">
+    <div class="wrap">
+      <div class="cat-head">
+        <h2>Machine Parts</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="thumb"><span>Add image</span><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Client name</span>
+            <h3>Project title</h3>
+            <p>Short summary — mechanism, load case, outcome.</p>
+            <div class="card-meta"><span>Tool</span><span>Year</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="thumb"><span>Add image</span><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Client name</span>
+            <h3>Project title</h3>
+            <p>Short summary — mechanism, load case, outcome.</p>
+            <div class="card-meta"><span>Tool</span><span>Year</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="category" id="aircraft">
+    <div class="wrap">
+      <div class="cat-head">
+        <h2>Aircraft Parts</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="thumb thumb-img"><img src="images/aircraft-wing-cover-cad.png" alt="Conceptual CAD model of the wing flap cover system, 737-800 right and left wing, open and closed positions"><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Personal engineering study</span>
+            <h3>Airplane wing cover system</h3>
+            <p>Conceptual multi-panel retractable wing flap cover system, studied across 4 aircraft classes (Cessna 172S, ATR 72-600, 737-800, 777-300ER). Full aerodynamic, structural/certification-load, and safety (FMEA) analysis, plus conceptual CAD for all 4 aircraft. Net fuel/economic benefit was positive only for the 737-800, showing the system is aircraft-class-specific rather than universal. 4 of 10 development stages complete (through Structural Load/Certification, with a conceptual preview of Detailed CAD).</p>
+            <div class="card-meta"><span>CAD + engineering analysis</span><span>2026</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="thumb"><span>Add image</span><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Client name</span>
+            <h3>Project title</h3>
+            <p>Short summary — part, constraint, and outcome.</p>
+            <div class="card-meta"><span>Tool</span><span>Year</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="category" id="home-decor">
+    <div class="wrap">
+      <div class="cat-head">
+        <h2>Home&amp;Decoration</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="thumb"><span>Add image</span><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Client name</span>
+            <h3>Project title</h3>
+            <p>Short summary — brief, material, finish.</p>
+            <div class="card-meta"><span>Tool</span><span>Year</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="thumb"><span>Add image</span><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Client name</span>
+            <h3>Project title</h3>
+            <p>Short summary — brief, material, finish.</p>
+            <div class="card-meta"><span>Tool</span><span>Year</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="category" id="miniature">
+    <div class="wrap">
+      <div class="cat-head">
+        <h2>Miniature&amp;Tabletop</h2>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="thumb"><span>Add image</span><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Client name</span>
+            <h3>Project title</h3>
+            <p>Short summary — piece, scale, finish notes.</p>
+            <div class="card-meta"><span>Tool</span><span>Year</span></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="thumb"><span>Add image</span><div class="save-btn"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4.35-9.5-8.5C.5 8.5 3 5 6.5 5c1.9 0 3.4 1 5.5 3 2.1-2 3.6-3 5.5-3C21 5 23.5 8.5 21.5 12.5 19 16.65 12 21 12 21z"/></svg></div></div>
+          <div class="card-body">
+            <span class="card-tag">Client name</span>
+            <h3>Project title</h3>
+            <p>Short summary — piece, scale, finish notes.</p>
+            <div class="card-meta"><span>Tool</span><span>Year</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about" id="about">
+    <div class="wrap about-grid">
+      <div>
+        <h2>About</h2>
+        <p>Write a short paragraph here about your background — how you moved between 3D and mechanical design, and what kind of problems you like solving.</p>
+        <p>Add a second paragraph on your process, or what you're looking for next (freelance, contract work).</p>
+      </div>
+      <div class="spec-card">
+        <div class="spec-row"><span>Based in</span><span>Türkiye</span></div>
+        <div class="spec-row"><span>Focus areas</span><span>Aircraft, automotive, home decoration, miniature</span></div>
+        <div class="spec-row"><span>3D tools</span><span>Blender, ZBrush, C4D</span></div>
+        <div class="spec-row"><span>CAD tools</span><span>SolidWorks, Fusion 360</span></div>
+        <div class="spec-row"><span>Available for</span><span>Freelance / contract</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="wrap">
+      <h2>Get in touch</h2>
+      <p>Have an Aircraft Parts, Automotive Parts, Home&amp;Decoration, or Miniature&amp;Tabletop project in mind? Reach out through any of these.</p>
+      <div class="contact-grid contact-grid-2">
+        <a class="contact-card" href="mailto:hhilalpolatt@gmail.com">
+          <div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg></div>
+          <div><div class="label">Email</div><div class="value">hhilalpolatt@gmail.com</div></div>
+        </a>
+        <a class="contact-card" href="https://www.linkedin.com/in/hilal-polat12" target="_blank" rel="noopener">
+          <div class="icon"><svg viewBox="0 0 24 24" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 10v7M7 7v.01M12 17v-4.5a2 2 0 0 1 4 0V17M12 12.5V17"/></svg></div>
+          <div><div class="label">LinkedIn</div><div class="value">hilal-polat12</div></div>
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap" style="width:100%;">
+    <span>© 2026 Hilal Polat — Mechanical &amp; Industrial &amp; 3D Design</span>
+    <span>Made with Claude</span>
+  </div>
+</footer>
+
+</body>
+</html>
