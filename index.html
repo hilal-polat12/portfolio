@@ -1,15 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<script>document.documentElement.classList.add('has-js');</script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hilal Polat — Mechanical & Industrial & 3D Designer</title>
 <meta name="description" content="Hilal Polat — Mechanical & Industrial & 3D Designer.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
+    --display:'Space Grotesk', sans-serif;
     --black:#141414;
     --red:#6e1423;
     --red-dark:#52101b;
@@ -44,6 +46,7 @@
     height:76px;
   }
   .logo{
+    font-family:var(--display);
     font-size:22px;font-weight:700;letter-spacing:-0.01em;
   }
   .logo span{color:var(--red);}
@@ -77,15 +80,31 @@
     font-size:14.5px;font-weight:500;
     color:var(--white);
     display:flex;align-items:center;gap:5px;
+    position:relative;
+    padding-bottom:2px;
   }
+  .navbar a::after{
+    content:'';
+    position:absolute;left:0;right:0;bottom:-2px;
+    height:2px;background:var(--white);
+    transform:scaleX(0);transform-origin:left;
+    transition:transform .2s;
+  }
+  .navbar a.active::after{transform:scaleX(1);}
   .navbar a svg{width:13px;height:13px;stroke:currentColor;opacity:0.6;}
 
   /* ---------- hero ---------- */
   .hero{
-    background:var(--red);
+    background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 45%),
+      radial-gradient(circle at 80% 80%, rgba(0,0,0,0.25), transparent 55%),
+      linear-gradient(160deg, var(--red) 0%, #4a0e18 100%);
     padding:40px 0 24px;
+    position:relative;
+    overflow:hidden;
   }
   .hero h1{
+    font-family:var(--display);
     font-size:clamp(28px,3.4vw,38px);
     font-weight:700;
     letter-spacing:-0.01em;
@@ -105,6 +124,7 @@
     margin-bottom:24px;
   }
   .cat-head h2{
+    font-family:var(--display);
     font-size:26px;font-weight:700;
     color:var(--white);
   }
@@ -122,10 +142,13 @@
     border-radius:6px;
     overflow:hidden;
     background:var(--card-bg);
-    transition:box-shadow .18s, border-color .18s;
+    transition:box-shadow .25s, border-color .25s, transform .25s, opacity .5s, translate .5s;
     position:relative;
   }
-  .card:hover{box-shadow:0 8px 24px rgba(0,0,0,0.35);border-color:rgba(255,255,255,0.3);}
+  .has-js .card{opacity:0;translate:0 24px;}
+  .has-js .card.in-view{opacity:1;translate:0 0;}
+  }
+  .card:hover{box-shadow:0 16px 34px rgba(0,0,0,0.45);border-color:rgba(255,255,255,0.3);transform:translateY(-6px);}
   .thumb{
     aspect-ratio:4/3;
     background:
@@ -140,7 +163,9 @@
   }
   .thumb-img{background:#fff;}
   .thumb-img img{width:100%;height:100%;object-fit:contain;padding:6px;}
-  .thumb-img-dark img{width:100%;height:100%;object-fit:cover;}
+  .thumb{overflow:hidden;}
+  .thumb-img-dark img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
+  .card:hover .thumb-img-dark img{transform:scale(1.06);}
 
   .save-btn, .like-btn{
     position:absolute;top:10px;
@@ -161,6 +186,7 @@
     display:block;margin-bottom:6px;
   }
   .card-body h3{
+    font-family:var(--display);
     font-size:18px;font-weight:600;margin-bottom:6px;
     line-height:1.3;color:var(--ink);
   }
@@ -183,7 +209,7 @@
   .about-grid{
     display:grid;grid-template-columns:1.2fr 1fr;gap:48px;
   }
-  .about h2{font-size:23px;font-weight:700;margin-bottom:16px;color:var(--white);}
+  .about h2{font-family:var(--display);font-size:23px;font-weight:700;margin-bottom:16px;color:var(--white);}
   .about p{color:rgba(255,255,255,0.82);font-size:15px;margin-bottom:14px;line-height:1.65;}
   .spec-card{
     background:var(--card-bg);
@@ -203,7 +229,7 @@
 
   /* ---------- contact ---------- */
   .contact{padding:56px 0;background:var(--red);}
-  .contact h2{font-size:23px;font-weight:700;margin-bottom:8px;color:var(--white);}
+  .contact h2{font-family:var(--display);font-size:23px;font-weight:700;margin-bottom:8px;color:var(--white);}
   .contact p{color:rgba(255,255,255,0.82);font-size:15px;margin-bottom:28px;}
   .contact-grid{
     display:grid;grid-template-columns:repeat(3,1fr);gap:16px;
@@ -843,6 +869,33 @@
       scrollBtn.classList.remove('visible');
     }
   });
+
+  // Fade-in cards on scroll
+  const cardObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        cardObserver.unobserve(entry.target);
+      }
+    });
+  }, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
+  document.querySelectorAll('.card').forEach(card => cardObserver.observe(card));
+
+  // Highlight active nav item based on scroll position
+  const navLinks = document.querySelectorAll('.navbar-inner a[href^="#"]');
+  const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+  function updateActiveNav(){
+    let currentId = sections[0] ? sections[0].id : null;
+    const scrollPos = window.scrollY + 140;
+    sections.forEach(sec => {
+      if(sec.offsetTop <= scrollPos) currentId = sec.id;
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
+    });
+  }
+  window.addEventListener('scroll', updateActiveNav);
+  updateActiveNav();
 </script>
 
 </body>
