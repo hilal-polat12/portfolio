@@ -306,7 +306,7 @@
 .card[onclick]{cursor:pointer}
 .product-page{display:none;min-height:calc(100vh - 128px);padding:56px 0 80px;background:var(--red)}
 .product-page.is-open{display:block}
-.product-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;color:rgba(255,255,255,.8);font-size:14px;font-weight:600;text-decoration:none}
+.product-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;color:var(--white);font-size:14px;font-weight:600;text-decoration:none}
 .product-back:hover{color:var(--white)}
 .product-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:48px;align-items:start}
 .product-image{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;overflow:hidden}
@@ -331,30 +331,30 @@
 
 .cart-page{display:none;min-height:calc(100vh - 128px);padding:56px 0 80px;background:var(--red)}
 .cart-page.is-open{display:block}
-.cart-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;color:rgba(255,255,255,.8);font-size:14px;font-weight:600;text-decoration:none}
+.cart-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;color:var(--white);font-size:14px;font-weight:600;text-decoration:none}
 .cart-back:hover{color:var(--white)}
 .cart-page h1{font-family:var(--display);font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--white);margin-bottom:32px}
 .cart-list{display:flex;flex-direction:column;gap:16px;max-width:760px}
 .cart-item{display:flex;gap:16px;align-items:center;background:var(--card-bg);border:1px solid var(--line);border-radius:8px;padding:14px}
 .cart-item img{width:88px;height:88px;object-fit:cover;border-radius:6px;flex-shrink:0;background:#111}
 .cart-item-info{flex:1;min-width:0}
-.cart-item-info .cart-item-code{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:rgba(255,255,255,.6);display:block;margin-bottom:4px}
+.cart-item-info .cart-item-code{font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--white);display:block;margin-bottom:4px}
 .cart-item-info h3{font-family:var(--display);font-size:16px;font-weight:600;color:var(--white);margin:0}
 .cart-remove{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:var(--white);font-size:13px;font-weight:600;padding:8px 14px;border-radius:4px;cursor:pointer;flex-shrink:0;font-family:inherit}
 .cart-remove:hover{background:rgba(255,255,255,.2)}
-.cart-empty{color:rgba(255,255,255,.75);font-size:15px}
+.cart-empty{color:var(--white);font-size:15px}
 .cart-summary{max-width:760px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;color:var(--white);font-size:14px}
 
 .cart-quote{max-width:760px;margin-top:8px}
-.cart-quote label{display:block;font-size:13px;color:rgba(255,255,255,.75);margin-bottom:8px}
+.cart-quote label{display:block;font-size:13px;color:var(--white);margin-bottom:8px}
 .cart-quote-row{display:flex;gap:12px;flex-wrap:wrap}
 .cart-quote input[type=email]{flex:1;min-width:220px;padding:12px 14px;border-radius:4px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.06);color:var(--white);font-size:14px;font-family:inherit}
-.cart-quote input[type=email]::placeholder{color:rgba(255,255,255,.45)}
+.cart-quote input[type=email]::placeholder{color:rgba(255,255,255,.65)}
 .cart-quote input[type=email]:focus{outline:none;border-color:rgba(255,255,255,.6)}
 .btn-quote{background:var(--black);color:var(--white);border:1px solid rgba(255,255,255,.25);font-size:14px;font-weight:600;padding:12px 22px;border-radius:4px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s}
 .btn-quote:hover{background:#000}
 .cart-quote-error{color:#ffc9c9;font-size:13px;margin-top:10px;display:none}
-.cart-quote-note{font-size:12.5px;color:rgba(255,255,255,.55);margin-top:12px}
+.cart-quote-note{font-size:12.5px;color:var(--white);margin-top:12px}
 
 .cart-btn.in-cart{opacity:1;background:rgba(110,20,35,0.85);}
 .cart-btn.in-cart:hover{background:rgba(110,20,35,1);}
