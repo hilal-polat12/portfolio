@@ -354,6 +354,7 @@
 .btn-quote{background:var(--black);color:var(--white);border:1px solid rgba(255,255,255,.25);font-size:14px;font-weight:600;padding:12px 22px;border-radius:4px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s}
 .btn-quote:hover{background:#000}
 .cart-quote-error{color:#ffc9c9;font-size:13px;margin-top:10px;display:none}
+.cart-quote-success{color:#c9ffd6;font-size:13px;margin-top:10px;display:none}
 .cart-quote-note{font-size:12.5px;color:var(--white);margin-top:12px}
 
 .cart-btn.in-cart{opacity:1;background:rgba(110,20,35,0.85);}
@@ -434,6 +435,7 @@
         <button type="button" class="btn-quote" id="requestQuoteBtn">Request a Quote</button>
       </div>
       <p class="cart-quote-error" id="cartQuoteError">Please enter a valid email address first.</p>
+      <p class="cart-quote-success" id="cartQuoteSuccess" style="display:none;">Thanks! Your request has been sent — you'll receive an email within 24 hours.</p>
       <p class="cart-quote-note">You will receive an email within 24 hours — please check your inbox.</p>
     </div>
   </div>
@@ -1136,7 +1138,7 @@
   const customerEmail = document.getElementById('customerEmail');
   const requestQuoteBtn = document.getElementById('requestQuoteBtn');
   const cartQuoteError = document.getElementById('cartQuoteError');
-  const QUOTE_EMAIL = 'hhilalpolatt@gmail.com';
+  const cartQuoteSuccess = document.getElementById('cartQuoteSuccess');
 
   function getCart(){
     try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
@@ -1275,7 +1277,8 @@
   // Re-sync whenever a product page is opened
   window.addEventListener('hashchange', syncProductButton);
 
-  // Request a quote by email
+  // Request a quote — sent via Formspree
+  const FORM_ENDPOINT = 'https://formspree.io/f/mvkopewb';
   function isValidEmail(value){
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
@@ -1283,21 +1286,48 @@
     requestQuoteBtn.addEventListener('click', function(){
       const email = (customerEmail.value || '').trim();
       if(!isValidEmail(email)){
+        cartQuoteError.textContent = 'Please enter a valid email address first.';
         cartQuoteError.style.display = 'block';
+        if(cartQuoteSuccess) cartQuoteSuccess.style.display = 'none';
         customerEmail.focus();
         return;
       }
       cartQuoteError.style.display = 'none';
+      if(cartQuoteSuccess) cartQuoteSuccess.style.display = 'none';
+
       const items = getCart();
       const lines = items.map(function(i){ return '- ' + i.code + ': ' + i.title; }).join('\n');
-      const subject = 'Price Quote Request';
-      const body =
-        'Hi Hilal,\n\nI would like a price quote for the following pieces:\n\n' + lines +
-        '\n\nMy email address: ' + email + '\n\nThanks!';
-      const mailto = 'mailto:' + QUOTE_EMAIL +
-        '?subject=' + encodeURIComponent(subject) +
-        '&body=' + encodeURIComponent(body);
-      window.location.href = mailto;
+      const message = 'Price quote request for the following pieces:\n\n' + lines;
+
+      requestQuoteBtn.disabled = true;
+      requestQuoteBtn.textContent = 'Sending...';
+
+      fetch(FORM_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          message: message,
+          _subject: 'Price Quote Request — Hilal Polat Portfolio'
+        })
+      }).then(function(res){
+        if(res.ok){
+          if(cartQuoteSuccess) cartQuoteSuccess.style.display = 'block';
+          customerEmail.value = '';
+        } else {
+          cartQuoteError.textContent = 'Something went wrong sending your request. Please try again.';
+          cartQuoteError.style.display = 'block';
+        }
+      }).catch(function(){
+        cartQuoteError.textContent = 'Something went wrong sending your request. Please try again.';
+        cartQuoteError.style.display = 'block';
+      }).finally(function(){
+        requestQuoteBtn.disabled = false;
+        requestQuoteBtn.textContent = 'Request a Quote';
+      });
     });
   }
 
