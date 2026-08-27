@@ -345,6 +345,20 @@
 .cart-empty{color:rgba(255,255,255,.75);font-size:15px}
 .cart-summary{max-width:760px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;color:var(--white);font-size:14px}
 
+.cart-quote{max-width:760px;margin-top:8px}
+.cart-quote label{display:block;font-size:13px;color:rgba(255,255,255,.75);margin-bottom:8px}
+.cart-quote-row{display:flex;gap:12px;flex-wrap:wrap}
+.cart-quote input[type=email]{flex:1;min-width:220px;padding:12px 14px;border-radius:4px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.06);color:var(--white);font-size:14px;font-family:inherit}
+.cart-quote input[type=email]::placeholder{color:rgba(255,255,255,.45)}
+.cart-quote input[type=email]:focus{outline:none;border-color:rgba(255,255,255,.6)}
+.btn-quote{background:var(--black);color:var(--white);border:1px solid rgba(255,255,255,.25);font-size:14px;font-weight:600;padding:12px 22px;border-radius:4px;cursor:pointer;font-family:inherit;white-space:nowrap;transition:background .15s}
+.btn-quote:hover{background:#000}
+.cart-quote-error{color:#ffc9c9;font-size:13px;margin-top:10px;display:none}
+.cart-quote-note{font-size:12.5px;color:rgba(255,255,255,.55);margin-top:12px}
+
+.cart-btn.in-cart{opacity:1;background:rgba(110,20,35,0.85);}
+.cart-btn.in-cart:hover{background:rgba(110,20,35,1);}
+
 </style>
 </head>
 <body id="top">
@@ -412,7 +426,15 @@
     <div id="cartList" class="cart-list"></div>
     <div id="cartSummary" class="cart-summary" style="display:none;">
       <span id="cartCount"></span>
-      <span style="opacity:.7;">Contact to arrange pricing &amp; production for these pieces.</span>
+    </div>
+    <div id="cartQuote" class="cart-quote" style="display:none;">
+      <label for="customerEmail">Your email address</label>
+      <div class="cart-quote-row">
+        <input type="email" id="customerEmail" placeholder="you@example.com">
+        <button type="button" class="btn-quote" id="requestQuoteBtn">Request a Quote</button>
+      </div>
+      <p class="cart-quote-error" id="cartQuoteError">Please enter a valid email address first.</p>
+      <p class="cart-quote-note">This opens your email app with the request pre-filled — nothing is sent automatically, and you'll reply directly to the address above.</p>
     </div>
   </div>
 </div>
@@ -1110,6 +1132,11 @@
   const cartList = document.getElementById('cartList');
   const cartSummary = document.getElementById('cartSummary');
   const cartCount = document.getElementById('cartCount');
+  const cartQuote = document.getElementById('cartQuote');
+  const customerEmail = document.getElementById('customerEmail');
+  const requestQuoteBtn = document.getElementById('requestQuoteBtn');
+  const cartQuoteError = document.getElementById('cartQuoteError');
+  const QUOTE_EMAIL = 'hhilalpolatt@gmail.com';
 
   function getCart(){
     try{ return JSON.parse(localStorage.getItem(CART_KEY)) || []; }
@@ -1118,11 +1145,16 @@
   function saveCart(items){
     localStorage.setItem(CART_KEY, JSON.stringify(items));
     updateBadge();
+    syncCardButtons();
+    syncProductButton();
   }
   function updateBadge(){
     const items = getCart();
     cartBadge.textContent = items.length;
     cartBadge.classList.toggle('is-empty', items.length === 0);
+  }
+  function isInCart(code){
+    return getCart().some(function(i){ return i.code === code; });
   }
   function addToCart(item){
     const items = getCart();
@@ -1141,6 +1173,7 @@
     if(items.length === 0){
       cartList.innerHTML = '<p class="cart-empty">Your cart is empty. Browse the collection and add pieces you like.</p>';
       cartSummary.style.display = 'none';
+      cartQuote.style.display = 'none';
       return;
     }
     items.forEach(function(item){
@@ -1162,48 +1195,109 @@
     });
     cartSummary.style.display = 'flex';
     cartCount.textContent = items.length + (items.length === 1 ? ' item' : ' items') + ' in your cart';
+    cartQuote.style.display = 'block';
   }
 
-  // "Add to cart" icon on each home grid card
+  function extractItemFromCard(card){
+    const img = card.querySelector('.thumb img');
+    const h3 = card.querySelector('.card-body h3');
+    const tagEl = card.querySelector('.card-tag');
+    const codeMatch = tagEl ? tagEl.textContent.match(/Code:\s*(H\d+)/i) : null;
+    return {
+      code: codeMatch ? codeMatch[1].toUpperCase() : (h3 ? h3.textContent : 'Item'),
+      title: h3 ? h3.textContent : '',
+      image: img ? img.getAttribute('src') : ''
+    };
+  }
+
+  // "Add/remove to cart" icon on each home grid card (toggles)
   document.querySelectorAll('#home .card').forEach(function(card){
     const btn = card.querySelector('.cart-btn');
     if(!btn) return;
     btn.addEventListener('click', function(e){
       e.stopPropagation();
-      const img = card.querySelector('.thumb img');
-      const h3 = card.querySelector('.card-body h3');
-      const tagEl = card.querySelector('.card-tag');
-      const codeMatch = tagEl ? tagEl.textContent.match(/Code:\s*(H\d+)/i) : null;
-      addToCart({
-        code: codeMatch ? codeMatch[1].toUpperCase() : (h3 ? h3.textContent : 'Item'),
-        title: h3 ? h3.textContent : '',
-        image: img ? img.getAttribute('src') : ''
-      });
-      btn.classList.add('added');
-      setTimeout(function(){ btn.classList.remove('added'); }, 900);
+      const item = extractItemFromCard(card);
+      if(isInCart(item.code)){
+        removeFromCart(item.code);
+      } else {
+        addToCart(item);
+        btn.classList.add('added');
+        setTimeout(function(){ btn.classList.remove('added'); }, 900);
+      }
     });
   });
 
-  // "Add to Cart" button on product detail page
+  function syncCardButtons(){
+    document.querySelectorAll('#home .card').forEach(function(card){
+      const btn = card.querySelector('.cart-btn');
+      if(!btn) return;
+      const item = extractItemFromCard(card);
+      const inCart = isInCart(item.code);
+      btn.classList.toggle('in-cart', inCart);
+      btn.title = inCart ? 'Remove from cart' : 'Add to cart';
+    });
+  }
+
+  // "Add to Cart" button on product detail page (toggles)
   const addBtn = document.getElementById('productAddToCart');
   const addLabel = document.getElementById('productAddToCartLabel');
+  function currentProductItem(){
+    const codeEl = document.getElementById('productCode');
+    const titleEl = document.getElementById('productTitle');
+    const imgEl = document.getElementById('productImage');
+    const codeMatch = codeEl ? codeEl.textContent.match(/Code:\s*(H\d+)/i) : null;
+    return {
+      code: codeMatch ? codeMatch[1].toUpperCase() : (titleEl ? titleEl.textContent : 'Item'),
+      title: titleEl ? titleEl.textContent : '',
+      image: imgEl ? imgEl.getAttribute('src') : ''
+    };
+  }
+  function syncProductButton(){
+    if(!addBtn || !addLabel) return;
+    const item = currentProductItem();
+    if(!item.code) return;
+    const inCart = isInCart(item.code);
+    addBtn.classList.toggle('added', inCart);
+    addLabel.textContent = inCart ? 'Remove from Cart' : 'Add to Cart';
+  }
   if(addBtn){
     addBtn.addEventListener('click', function(){
-      const codeEl = document.getElementById('productCode');
-      const titleEl = document.getElementById('productTitle');
-      const imgEl = document.getElementById('productImage');
-      const codeMatch = codeEl ? codeEl.textContent.match(/Code:\s*(H\d+)/i) : null;
-      addToCart({
-        code: codeMatch ? codeMatch[1].toUpperCase() : (titleEl ? titleEl.textContent : 'Item'),
-        title: titleEl ? titleEl.textContent : '',
-        image: imgEl ? imgEl.getAttribute('src') : ''
-      });
-      addBtn.classList.add('added');
-      addLabel.textContent = 'Added ✓';
-      setTimeout(function(){
-        addBtn.classList.remove('added');
-        addLabel.textContent = 'Add to Cart';
-      }, 1400);
+      const item = currentProductItem();
+      if(isInCart(item.code)){
+        removeFromCart(item.code);
+        syncProductButton();
+      } else {
+        addToCart(item);
+        syncProductButton();
+      }
+    });
+  }
+  // Re-sync whenever a product page is opened
+  window.addEventListener('hashchange', syncProductButton);
+
+  // Request a quote by email
+  function isValidEmail(value){
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+  }
+  if(requestQuoteBtn){
+    requestQuoteBtn.addEventListener('click', function(){
+      const email = (customerEmail.value || '').trim();
+      if(!isValidEmail(email)){
+        cartQuoteError.style.display = 'block';
+        customerEmail.focus();
+        return;
+      }
+      cartQuoteError.style.display = 'none';
+      const items = getCart();
+      const lines = items.map(function(i){ return '- ' + i.code + ': ' + i.title; }).join('\n');
+      const subject = 'Price Quote Request';
+      const body =
+        'Hi Hilal,\n\nI would like a price quote for the following pieces:\n\n' + lines +
+        '\n\nMy email address: ' + email + '\n\nThanks!';
+      const mailto = 'mailto:' + QUOTE_EMAIL +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(body);
+      window.location.href = mailto;
     });
   }
 
@@ -1231,6 +1325,8 @@
   }
   window.addEventListener('hashchange', cartRoute);
   updateBadge();
+  syncCardButtons();
+  syncProductButton();
   cartRoute();
 })();
 
