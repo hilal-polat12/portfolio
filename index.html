@@ -23,6 +23,17 @@
     --ink-faint:rgba(255,255,255,0.55);
   }
   *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    -webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;
+  }
+  input, textarea{
+    -webkit-user-select:text;-moz-user-select:text;-ms-user-select:text;user-select:text;
+  }
+  img{
+    -webkit-user-drag:none;user-drag:none;
+    -webkit-touch-callout:none;
+    pointer-events:auto;
+  }
   html{scroll-behavior:smooth;}
   body{
     font-family:'Inter', sans-serif;
@@ -345,6 +356,13 @@
 .cart-remove:hover{background:rgba(255,255,255,.2)}
 .cart-empty{color:var(--white);font-size:15px}
 .cart-summary{max-width:760px;margin-top:24px;padding-top:20px;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;color:var(--white);font-size:14px}
+
+@media(max-width:520px){
+  .cart-item{flex-wrap:wrap}
+  .cart-item img{width:64px;height:64px}
+  .cart-item-info h3{font-size:15px}
+  .cart-remove{flex:1 1 100%;margin-top:12px}
+}
 
 .cart-quote{max-width:760px;margin-top:8px}
 .cart-quote label{display:block;font-size:13px;color:var(--white);margin-bottom:8px}
@@ -1067,6 +1085,28 @@
   <svg viewBox="0 0 24 24" stroke-width="2"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
 </button>
 <script>
+  // Basic copy/download deterrents
+  document.addEventListener('contextmenu', function(e){
+    e.preventDefault();
+  });
+  document.addEventListener('dragstart', function(e){
+    if(e.target && e.target.tagName === 'IMG') e.preventDefault();
+  });
+  document.addEventListener('keydown', function(e){
+    const tag = (e.target && e.target.tagName || '').toLowerCase();
+    if(tag === 'input' || tag === 'textarea') return; // allow typing/copying in form fields
+    const key = (e.key || '').toLowerCase();
+    if((e.ctrlKey || e.metaKey) && ['c','s','u','p'].indexOf(key) !== -1){
+      e.preventDefault();
+    }
+    if(key === 'f12'){
+      e.preventDefault();
+    }
+    if((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].indexOf(key) !== -1){
+      e.preventDefault();
+    }
+  });
+
   const scrollBtn = document.getElementById('scrollTopBtn');
   window.addEventListener('scroll', function(){
     if(window.scrollY > 400){
