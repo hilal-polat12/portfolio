@@ -358,6 +358,16 @@
 .cart-quote-success{color:#c9ffd6;font-size:13px;margin-top:10px;display:none}
 .cart-quote-note{font-size:12.5px;color:var(--white);margin-top:12px}
 
+/* About page */
+.about-page{display:none;min-height:calc(100vh - 128px);padding:56px 0 80px;background:var(--red)}
+.about-page.is-open{display:block}
+.about-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;color:var(--white);font-size:14px;font-weight:600;text-decoration:none}
+.about-back:hover{color:var(--white)}
+.about-page h1{font-family:var(--display);font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--white);margin-bottom:24px}
+.about-page-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}
+.about-page-text p{color:var(--white);font-size:15px;line-height:1.75;margin-bottom:16px}
+@media(max-width:1000px){.about-page-grid{grid-template-columns:1fr}}
+
 </style>
 </head>
 <body id="top">
@@ -435,6 +445,26 @@
       <p class="cart-quote-error" id="cartQuoteError">Please enter a valid email address first.</p>
       <p class="cart-quote-success" id="cartQuoteSuccess" style="display:none;">Thanks! Your request has been sent — you'll receive an email within 24 hours.</p>
       <p class="cart-quote-note">You will receive an email within 24 hours — please check your inbox.</p>
+    </div>
+  </div>
+</div>
+
+<div id="aboutPage" class="about-page" aria-hidden="true">
+  <div class="wrap">
+    <a href="#home" class="about-back">← Back to Home</a>
+    <h1>About</h1>
+    <div class="about-page-grid">
+      <div class="about-page-text">
+        <p>Hilal Polat is a Mechanical &amp; Industrial &amp; 3D Designer based in Türkiye, working at the intersection of classical industrial design and applied mechanical engineering. The practice runs along two parallel tracks: functional mechanical and industrial parts, including aircraft flap and cover systems, automotive components, and machine parts, engineered with attention to load paths, tolerancing, and certification-grade documentation; and sculptural 3D-print design, where each home-decoration, miniature, and tabletop piece is developed as a full print-ready brief covering wall thickness, layer height, support strategy, and material selection, rather than a rendered concept alone.</p>
+        <p>CAD work runs through SolidWorks and Fusion 360 for parametric, tolerance-driven modeling of load-bearing geometry, while Blender, ZBrush, and Cinema 4D handle the organic, sculptural, and rendering side of the print catalogue. Every project, whether an aircraft panel or a candle holder, is treated as an engineering problem first: the geometry has to make physical and structural sense before it becomes a finished drawing or a printable file.</p>
+      </div>
+      <div class="spec-card">
+        <div class="spec-row"><span>Based in</span><span>Türkiye</span></div>
+        <div class="spec-row"><span>Focus areas</span><span>Aircraft, automotive, home decoration, miniature</span></div>
+        <div class="spec-row"><span>3D tools</span><span>Blender, ZBrush, C4D</span></div>
+        <div class="spec-row"><span>CAD tools</span><span>SolidWorks, Fusion 360</span></div>
+        <div class="spec-row"><span>Available for</span><span>Freelance / contract</span></div>
+      </div>
     </div>
   </div>
 </div>
@@ -1013,21 +1043,6 @@
     </div>
   </section>
 
-  <section class="about" id="about">
-    <div class="wrap about-grid">
-      <div>
-        <h2>About</h2>
-      </div>
-      <div class="spec-card">
-        <div class="spec-row"><span>Based in</span><span>Türkiye</span></div>
-        <div class="spec-row"><span>Focus areas</span><span>Aircraft, automotive, home decoration, miniature</span></div>
-        <div class="spec-row"><span>3D tools</span><span>Blender, ZBrush, C4D</span></div>
-        <div class="spec-row"><span>CAD tools</span><span>SolidWorks, Fusion 360</span></div>
-        <div class="spec-row"><span>Available for</span><span>Freelance / contract</span></div>
-      </div>
-    </div>
-  </section>
-
   <section class="contact" id="contact">
     <div class="wrap">
       <h2>Contact</h2>
@@ -1405,6 +1420,41 @@
   syncCardButtons();
   syncProductButton();
   cartRoute();
+})();
+
+// About page
+(function(){
+  const aboutPage = document.getElementById('aboutPage');
+  if(!aboutPage) return;
+
+  function showAbout(){
+    document.querySelectorAll('main > section').forEach(function(section){
+      section.style.display = 'none';
+    });
+    const productPage = document.getElementById('productPage');
+    if(productPage){
+      productPage.classList.remove('is-open');
+      productPage.setAttribute('aria-hidden', 'true');
+    }
+    const cartPageEl = document.getElementById('cartPage');
+    if(cartPageEl){
+      cartPageEl.classList.remove('is-open');
+      cartPageEl.setAttribute('aria-hidden', 'true');
+    }
+    aboutPage.classList.add('is-open');
+    aboutPage.setAttribute('aria-hidden', 'false');
+    window.scrollTo(0,0);
+  }
+  function hideAbout(){
+    aboutPage.classList.remove('is-open');
+    aboutPage.setAttribute('aria-hidden', 'true');
+  }
+  function aboutRoute(){
+    if(window.location.hash.toLowerCase() === '#about') showAbout();
+    else hideAbout();
+  }
+  window.addEventListener('hashchange', aboutRoute);
+  aboutRoute();
 })();
 
 </script>
