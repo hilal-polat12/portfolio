@@ -1138,20 +1138,39 @@
   }, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
   document.querySelectorAll('.card').forEach(card => cardObserver.observe(card));
 
-  // Highlight active nav item based on scroll position
+  // Highlight active nav item based on scroll position (and current hash page)
   const navLinks = document.querySelectorAll('.navbar-inner a[href^="#"]');
   const sections = Array.from(navLinks).map(a => document.querySelector(a.getAttribute('href'))).filter(Boolean);
   function updateActiveNav(){
+    const hash = window.location.hash.toLowerCase();
+
+    // Overlay pages: force the matching nav link, ignore scroll position entirely
+    if(hash === '#about'){
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#about'));
+      return;
+    }
+    if(/^#home\/h(?:[1-9]|[1-4][0-9]|50)$/.test(hash) || hash === '#cart'){
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#home'));
+      return;
+    }
+
+    // Normal in-page flow: scroll-position based, with a bottom-of-page snap
     let currentId = sections[0] ? sections[0].id : null;
     const scrollPos = window.scrollY + 140;
-    sections.forEach(sec => {
-      if(sec.offsetTop <= scrollPos) currentId = sec.id;
-    });
+    const nearBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 4);
+    if(nearBottom && sections.length){
+      currentId = sections[sections.length - 1].id;
+    } else {
+      sections.forEach(sec => {
+        if(sec.offsetTop <= scrollPos) currentId = sec.id;
+      });
+    }
     navLinks.forEach(a => {
       a.classList.toggle('active', a.getAttribute('href') === '#' + currentId);
     });
   }
   window.addEventListener('scroll', updateActiveNav);
+  window.addEventListener('hashchange', updateActiveNav);
   updateActiveNav();
 
 // Product pages: #home/h1 ... #home/h50
