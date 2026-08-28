@@ -181,6 +181,11 @@
   .thumb{overflow:hidden;}
   .thumb-img-dark img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
   .card:hover .thumb-img-dark img{transform:scale(1.06);}
+  /* Miniature renders are wide (~1.83:1) vs the 4:3 card box; show the full figure instead of cropping */
+  #miniature .thumb{background:#000;}
+  #miniature .thumb-img-dark img{object-fit:contain;}
+  .product-image.contain-image{background:#000;}
+  .product-image.contain-image img{object-fit:contain;}
 
   .card-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;}
   .card-add-cart{
@@ -1348,6 +1353,10 @@
     if(img){
       image.src = img.getAttribute('src');
       image.alt = img.getAttribute('alt') || (h3 ? h3.textContent : '');
+    }
+
+    if(image && image.parentElement){
+      image.parentElement.classList.toggle('contain-image', section === 'miniature');
     }
 
     const tech = card.getAttribute('data-tech');
