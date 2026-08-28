@@ -335,10 +335,10 @@
 @media(max-width:800px){.product-layout{grid-template-columns:1fr;gap:28px}}
 
 /* Cart */
-.btn-cart{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--black);color:var(--white);border:1px solid rgba(255,255,255,0.25);font-size:14px;font-weight:600;padding:11px 18px;border-radius:4px;transition:background .15s;cursor:pointer;font-family:inherit;text-decoration:none}
-.btn-cart:hover{background:#000}
+.btn-cart{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--red);border:none;font-size:14px;font-weight:700;padding:11px 18px;border-radius:4px;transition:background .15s;cursor:pointer;font-family:inherit;text-decoration:none}
+.btn-cart:hover{background:#f0e6e6}
 .btn-cart svg{width:18px;height:18px;stroke:currentColor;fill:none}
-.cart-badge{position:absolute;top:-7px;right:-9px;background:var(--red);color:#fff;font-size:11px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;line-height:1;border:1px solid var(--black)}
+.cart-badge{position:absolute;top:-7px;right:-9px;background:var(--red);color:#fff;font-size:11px;font-weight:700;min-width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;padding:0 4px;line-height:1;border:1px solid var(--white)}
 .cart-badge.is-empty{display:none}
 
 .cart-page{display:none;min-height:calc(100vh - 128px);padding:56px 0 80px;background:var(--red)}
@@ -429,7 +429,6 @@
         Cart
         <span class="cart-badge is-empty" id="cartBadge">0</span>
       </a>
-      <a href="#contact" class="btn-contact">Contact</a>
     </div>
   </div>
   <div class="navbar">
