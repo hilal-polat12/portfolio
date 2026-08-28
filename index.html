@@ -1472,7 +1472,7 @@
     const img = card.querySelector('.thumb img');
     const h3 = card.querySelector('.card-body h3');
     const tagEl = card.querySelector('.card-tag');
-    const codeMatch = tagEl ? tagEl.textContent.match(/Code:\s*(H\d+)/i) : null;
+    const codeMatch = tagEl ? tagEl.textContent.match(/Code:\s*([A-Z]+\d+)/i) : null;
     return {
       code: codeMatch ? codeMatch[1].toUpperCase() : (h3 ? h3.textContent : 'Item'),
       title: h3 ? h3.textContent : '',
@@ -1480,8 +1480,8 @@
     };
   }
 
-  // "Add to Cart" button on each home grid card (toggles)
-  document.querySelectorAll('#home .card').forEach(function(card){
+  // "Add to Cart" button on each grid card, across all categories (toggles)
+  document.querySelectorAll('.grid .card').forEach(function(card){
     const btn = card.querySelector('.card-add-cart');
     if(!btn) return;
     btn.addEventListener('click', function(e){
@@ -1496,7 +1496,7 @@
   });
 
   function syncCardButtons(){
-    document.querySelectorAll('#home .card').forEach(function(card){
+    document.querySelectorAll('.grid .card').forEach(function(card){
       const btn = card.querySelector('.card-add-cart');
       if(!btn) return;
       const item = extractItemFromCard(card);
@@ -1513,7 +1513,7 @@
     const codeEl = document.getElementById('productCode');
     const titleEl = document.getElementById('productTitle');
     const imgEl = document.getElementById('productImage');
-    const codeMatch = codeEl ? codeEl.textContent.match(/Code:\s*(H\d+)/i) : null;
+    const codeMatch = codeEl ? codeEl.textContent.match(/Code:\s*([A-Z]+\d+)/i) : null;
     return {
       code: codeMatch ? codeMatch[1].toUpperCase() : (titleEl ? titleEl.textContent : 'Item'),
       title: titleEl ? titleEl.textContent : '',
