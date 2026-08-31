@@ -341,10 +341,7 @@
 @media(max-width:800px){.product-layout{grid-template-columns:1fr;gap:28px}}
 
 /* C1 dedicated long-form product page */
-.c1-page .product-code{display:block;margin-bottom:10px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--white)}
-.c1-page .c1-title{margin:14px 0 16px;font-family:var(--display);font-size:clamp(30px,4vw,48px);line-height:1.08;color:var(--white)}
-.c1-page .c1-intro{max-width:760px;margin-bottom:24px}
-.c1-add-cart{margin-bottom:16px}
+.c1-add-cart{margin-top:20px}
 .c1-row{display:flex;gap:44px;align-items:center;margin:64px 0;flex-wrap:wrap}
 .c1-row.reverse{flex-direction:row-reverse}
 .c1-row-image{flex:1 1 420px;min-width:280px}
@@ -498,19 +495,19 @@
 <div id="c1Page" class="product-page c1-page" aria-hidden="true">
   <div class="wrap">
     <a href="#aircraft" class="product-back">← Back to Aircraft &amp; Drone</a>
-    <span class="product-code">Code: C1 · Mechanical Design</span>
-    <h1 class="c1-title">Retractable wing flap cover system</h1>
-    <p class="product-description c1-intro">Multi-panel retractable wing flap cover system engineered around aerodynamic load optimization and certification-grade structural analysis, verified for the narrow-body jet wing platform. This walkthrough covers the aerodynamic case, the structural and certification load chain, the safety and failure analysis, and the net fuel and economic result behind the design.</p>
-    <button type="button" class="product-contact c1-add-cart" id="c1AddToCartTop">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
-      <span class="c1-cart-label">Add to Cart</span>
-    </button>
 
-    <div class="c1-row">
-      <div class="c1-row-image"><img src="images/C1.1.jpg" alt="Complete Boeing 737-800 style aircraft showing the retractable wing flap cover system installed near the wing root"></div>
-      <div class="c1-row-text">
-        <h2>Overview</h2>
-        <p>A retractable, multi-panel cover fitted over the wing flap mechanism, designed to reduce parasite drag in cruise while folding back to expose the flap system for takeoff and landing. The system is engineered as a certification-track mechanical assembly rather than a decorative concept, with every panel dimension, hinge, and actuator tracing back to a specific load path or safety margin. Verified for the narrow-body jet wing platform, this is the only configuration in the underlying study to return a net positive fuel and economic outcome over its service life, which is why the design is built specifically around that aircraft class rather than as a universal fit.</p>
+    <div class="product-layout c1-intro-layout">
+      <div class="product-image">
+        <img src="images/C1.1.jpg" alt="Complete Boeing 737-800 style aircraft showing the retractable wing flap cover system installed near the wing root">
+      </div>
+      <div class="product-info">
+        <span class="product-code">Code: C1 · Mechanical Design</span>
+        <h1>Retractable wing flap cover system</h1>
+        <p class="product-description">A retractable, multi-panel cover fitted over the wing flap mechanism, designed to reduce parasite drag in cruise while folding back to expose the flap system for takeoff and landing. The system is engineered as a certification-track mechanical assembly rather than a decorative concept, with every panel dimension, hinge, and actuator tracing back to a specific load path or safety margin. Verified for the narrow-body jet wing platform, this is the only configuration in the underlying study to return a net positive fuel and economic outcome over its service life, which is why the design is built specifically around that aircraft class rather than as a universal fit. This walkthrough covers the aerodynamic case, the structural and certification load chain, the safety and failure analysis, and the net fuel and economic result behind the design.</p>
+        <button type="button" class="product-contact c1-add-cart" id="c1AddToCartTop">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
+          <span class="c1-cart-label">Add to Cart</span>
+        </button>
       </div>
     </div>
 
