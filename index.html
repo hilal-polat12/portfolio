@@ -1111,7 +1111,7 @@
         <h2>Aircraft Parts</h2>
       </div>
       <div class="grid">
-        <div class="card">
+        <div class="card" onclick="window.location.hash='aircraft/c1';" data-tech="Optimum panel count of 3 per wing, sized against a 25 kN actuator power threshold, with 11.47 kN carried per panel. Certification load chain runs Limit 6.91 kN, Ultimate 10.37 kN (x1.5), Fail-Safe Design Load 12.96 kN (x1.25), a combined x1.875 factor validated across 600,000 certification test cycles. Catastrophic failure probability sits at 6.0x10^-11 per flight hour against the CS-25.1309 threshold of 10^-9, a 16.7x safety margin. Panel natural frequency of 56.2 Hz stays well clear of the 6-10 Hz wing torsion band, keeping flutter response separated and favorable. Over Design Service Goal life the system nets +285,514 kg of fuel and a +$256,963 economic benefit, the only positive outcome across the aircraft classes studied. Recommended inspection interval is every 7,500 flights against a 75,000-flight DSG.">
           <div class="thumb thumb-img"><img src="images/aircraft-wing-cover-cad.png" alt="Conceptual CAD model of the wing flap cover system, 737-800 right and left wing, open and closed positions"></div>
           <div class="card-body">
             <span class="card-tag">Code: C1 · Aircraft Wing Flap Cover</span>
@@ -1312,7 +1312,8 @@
   const backLink = document.getElementById('productBack');
   const backLabels = {
     home: '← Back to Home &amp; Decoration',
-    miniature: '← Back to Miniature &amp; Tabletop'
+    miniature: '← Back to Miniature &amp; Tabletop',
+    aircraft: '← Back to Aircraft Parts'
   };
 
   function showProduct(section, id){
@@ -1386,8 +1387,10 @@
   function route(){
     const homeMatch=window.location.hash.match(/^#home\/(h(?:[1-9]|[1-4][0-9]|50))$/i);
     const miniMatch=window.location.hash.match(/^#miniature\/(m[1-9]\d*)$/i);
+    const aircraftMatch=window.location.hash.match(/^#aircraft\/(c[1-9]\d*)$/i);
     if(homeMatch) showProduct('home', homeMatch[1].toLowerCase());
     else if(miniMatch) showProduct('miniature', miniMatch[1].toLowerCase());
+    else if(aircraftMatch) showProduct('aircraft', aircraftMatch[1].toLowerCase());
     else closeProduct();
   }
 
