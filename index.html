@@ -340,6 +340,19 @@
 .product-contact.added{background:var(--black);color:var(--white)}
 @media(max-width:800px){.product-layout{grid-template-columns:1fr;gap:28px}}
 
+/* C1 dedicated long-form product page */
+.c1-page .c1-title{margin:14px 0 16px;font-family:var(--display);font-size:clamp(30px,4vw,48px);line-height:1.08;color:var(--white)}
+.c1-page .c1-intro{max-width:760px;margin-bottom:24px}
+.c1-add-cart{margin-bottom:16px}
+.c1-row{display:flex;gap:44px;align-items:center;margin:64px 0;flex-wrap:wrap}
+.c1-row.reverse{flex-direction:row-reverse}
+.c1-row-image{flex:1 1 420px;min-width:280px}
+.c1-row-image img{width:100%;display:block;border-radius:8px;object-fit:cover}
+.c1-row-text{flex:1 1 380px;min-width:280px}
+.c1-row-text h2{margin:0 0 12px;font-family:var(--display);font-size:clamp(20px,2.4vw,26px);color:var(--white)}
+.c1-row-text p{color:var(--white);font-size:15px;line-height:1.75;margin:0}
+@media(max-width:800px){.c1-row,.c1-row.reverse{flex-direction:column}.c1-row{margin:40px 0}}
+
 /* Cart */
 .btn-cart{position:relative;display:inline-flex;align-items:center;gap:8px;background:var(--white);color:var(--red);border:none;font-size:14px;font-weight:700;padding:11px 18px;border-radius:4px;transition:background .15s;cursor:pointer;font-family:inherit;text-decoration:none}
 .btn-cart:hover{background:#f0e6e6}
@@ -478,6 +491,64 @@
         </button>
       </div>
     </div>
+  </div>
+</div>
+
+<div id="c1Page" class="product-page c1-page" aria-hidden="true">
+  <div class="wrap">
+    <a href="#aircraft" class="product-back">← Back to Aircraft Parts</a>
+    <span class="product-code">Code: C1 · Aircraft Wing Flap Cover</span>
+    <h1 class="c1-title">Retractable wing flap cover system</h1>
+    <p class="product-description c1-intro">Multi-panel retractable wing flap cover system engineered around aerodynamic load optimization and certification-grade structural analysis, verified for the narrow-body jet wing platform. This walkthrough covers the aerodynamic case, the structural and certification load chain, the safety and failure analysis, and the net fuel and economic result behind the design.</p>
+    <button type="button" class="product-contact c1-add-cart" id="c1AddToCartTop">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
+      <span class="c1-cart-label">Add to Cart</span>
+    </button>
+
+    <div class="c1-row">
+      <div class="c1-row-image"><img src="images/C1.1.jpg" alt="Complete Boeing 737-800 style aircraft showing the retractable wing flap cover system installed near the wing root"></div>
+      <div class="c1-row-text">
+        <h2>Overview</h2>
+        <p>A retractable, multi-panel cover fitted over the wing flap mechanism, designed to reduce parasite drag in cruise while folding back to expose the flap system for takeoff and landing. The system is engineered as a certification-track mechanical assembly rather than a decorative concept, with every panel dimension, hinge, and actuator tracing back to a specific load path or safety margin. Verified for the narrow-body jet wing platform, this is the only configuration in the underlying study to return a net positive fuel and economic outcome over its service life, which is why the design is built specifically around that aircraft class rather than as a universal fit.</p>
+      </div>
+    </div>
+
+    <div class="c1-row reverse">
+      <div class="c1-row-image"><img src="images/C1.2.jpg" alt="Retractable wing flap cover system, open takeoff configuration, isometric view"></div>
+      <div class="c1-row-text">
+        <h2>Aerodynamic performance</h2>
+        <p>With the flap cover deployed, CLmax rises from an estimated 1.60 in clean configuration to 2.34 in landing configuration, cutting stall speed by 17.3% and landing distance by 31.6%. That gain comes with a drag cost the structure has to carry: 9.21 kN of flap drag at takeoff, climbing to 36.84 kN at landing, plus 2.631 kN of trim drag. These figures set the actuator sizing and the panel load case covered next.</p>
+      </div>
+    </div>
+
+    <div class="c1-row">
+      <div class="c1-row-image"><img src="images/C1.3.jpg" alt="Wing flap cover system, fully closed cruise configuration, flush with wing skin"></div>
+      <div class="c1-row-text">
+        <h2>Structural load &amp; certification</h2>
+        <p>The cover is split into 3 panels per wing, sized against a 25 kN actuator power threshold, each carrying 11.47 kN with a total actuator weight of 89.2 kg per wing. The most critical panel runs through the full certification load chain: a 6.91 kN limit load, an ultimate load of 10.37 kN at a 1.5x factor, and a fail-safe design load of 12.96 kN at a further 1.25x, a combined 1.875x factor validated across 600,000 certification test cycles. A torque-based hinge moment cross-check found the simple 5:1 leverage estimate understated real loading by 71%, so the moment-based method governs the design shown here.</p>
+      </div>
+    </div>
+
+    <div class="c1-row reverse">
+      <div class="c1-row-image"><img src="images/C1.4.jpg" alt="Wing flap cover system, front-facing view of the fail-safe hinge and actuator linkage mechanism"></div>
+      <div class="c1-row-text">
+        <h2>Safety &amp; failure analysis</h2>
+        <p>A single-panel asymmetry case, with a 170.37 kN lift difference between wings, produces a 1,448.6 kNm roll moment, the scenario the fail-safe hinge and dual load-path linkage are sized to survive. Across the system's 6 actuators, the probability of a catastrophic failure works out to 6.0x10^-11 per flight hour, a 16.7x margin against the CS-25.1309 threshold of 10^-9. A flutter check puts the estimated panel natural frequency at 56.2 Hz, well clear of the 6-10 Hz wing torsion band, keeping the two responses separated and the coupling risk low.</p>
+      </div>
+    </div>
+
+    <div class="c1-row">
+      <div class="c1-row-image"><img src="images/C1.5.png" alt="Original conceptual CAD study, 737-800 right and left wing, closed and open positions"></div>
+      <div class="c1-row-text">
+        <h2>Economics, maintenance &amp; project status</h2>
+        <p>Netting the system's added weight and drag against the fuel it saves gives 25.438 kg of fuel savings per flight against a 21.632 kg weight and drag penalty, a net gain of 3.806 kg per flight. Carried across a 75,000-flight Design Service Goal, that comes to +285,514 kg of fuel and a +$256,963 economic benefit, the only positive result among the aircraft classes covered by the underlying study. Recommended inspection interval is every 7,500 flights. The project has completed 4 of 10 aircraft development stages (requirements definition, conceptual mechanism, aerodynamic analysis, and structural load/certification), with a conceptual-level preview of stage 5, detailed CAD; physical prototyping, CFD or wind tunnel verification, flight testing, and formal certification remain outside the current scope.</p>
+      </div>
+    </div>
+
+    <button type="button" class="product-contact c1-add-cart" id="c1AddToCartBottom">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
+      <span class="c1-cart-label">Add to Cart</span>
+    </button>
   </div>
 </div>
 
@@ -1284,6 +1355,7 @@
   };
 
   function showProduct(section, id){
+    closeC1();
     const cards = document.querySelectorAll('#' + section + ' .card');
     let card = null;
 
@@ -1378,6 +1450,7 @@
   function closeProduct(){
     page.classList.remove('is-open');
     page.setAttribute('aria-hidden','true');
+    closeC1();
     document.querySelectorAll('main > section').forEach(function(section){
       section.style.display='';
     });
@@ -1387,12 +1460,36 @@
     }
   }
 
+  const c1Page = document.getElementById('c1Page');
+
+  function showC1(){
+    page.classList.remove('is-open');
+    page.setAttribute('aria-hidden','true');
+    document.querySelectorAll('main > section').forEach(function(sec){
+      sec.style.display='none';
+    });
+    if(c1Page){
+      c1Page.classList.add('is-open');
+      c1Page.setAttribute('aria-hidden','false');
+    }
+    currentSection = 'aircraft';
+    window.scrollTo(0,0);
+  }
+
+  function closeC1(){
+    if(c1Page){
+      c1Page.classList.remove('is-open');
+      c1Page.setAttribute('aria-hidden','true');
+    }
+  }
+
   function route(){
     const homeMatch=window.location.hash.match(/^#home\/(h(?:[1-9]|[1-4][0-9]|50))$/i);
     const miniMatch=window.location.hash.match(/^#miniature\/(m[1-9]\d*)$/i);
     const aircraftMatch=window.location.hash.match(/^#aircraft\/(c[1-9]\d*)$/i);
     if(homeMatch) showProduct('home', homeMatch[1].toLowerCase());
     else if(miniMatch) showProduct('miniature', miniMatch[1].toLowerCase());
+    else if(aircraftMatch && aircraftMatch[1].toLowerCase() === 'c1') showC1();
     else if(aircraftMatch) showProduct('aircraft', aircraftMatch[1].toLowerCase());
     else closeProduct();
   }
@@ -1550,6 +1647,37 @@
   // Re-sync whenever a product page is opened
   window.addEventListener('hashchange', syncProductButton);
 
+  // "Add to Cart" buttons on the dedicated C1 aircraft page (toggle, top and bottom)
+  const c1Item = {
+    code: 'C1',
+    title: 'Retractable wing flap cover system',
+    image: 'images/C1.1.jpg'
+  };
+  const c1Buttons = [
+    document.getElementById('c1AddToCartTop'),
+    document.getElementById('c1AddToCartBottom')
+  ].filter(Boolean);
+  function syncC1Buttons(){
+    const inCart = isInCart(c1Item.code);
+    c1Buttons.forEach(function(btn){
+      btn.classList.toggle('added', inCart);
+      const label = btn.querySelector('.c1-cart-label');
+      if(label) label.textContent = inCart ? 'Remove from Cart' : 'Add to Cart';
+    });
+  }
+  c1Buttons.forEach(function(btn){
+    btn.addEventListener('click', function(){
+      if(isInCart(c1Item.code)){
+        removeFromCart(c1Item.code);
+      } else {
+        addToCart(c1Item);
+      }
+      syncC1Buttons();
+    });
+  });
+  window.addEventListener('hashchange', syncC1Buttons);
+  syncC1Buttons();
+
   // Request a quote — sent via Formspree
   const FORM_ENDPOINT = 'https://formspree.io/f/mvkopewb';
   function isValidEmail(value){
@@ -1613,6 +1741,11 @@
       productPage.classList.remove('is-open');
       productPage.setAttribute('aria-hidden', 'true');
     }
+    const c1PageEl = document.getElementById('c1Page');
+    if(c1PageEl){
+      c1PageEl.classList.remove('is-open');
+      c1PageEl.setAttribute('aria-hidden', 'true');
+    }
     renderCart();
     cartPage.classList.add('is-open');
     cartPage.setAttribute('aria-hidden', 'false');
@@ -1651,6 +1784,11 @@
     if(cartPageEl){
       cartPageEl.classList.remove('is-open');
       cartPageEl.setAttribute('aria-hidden', 'true');
+    }
+    const c1PageEl = document.getElementById('c1Page');
+    if(c1PageEl){
+      c1PageEl.classList.remove('is-open');
+      c1PageEl.setAttribute('aria-hidden', 'true');
     }
     aboutPage.classList.add('is-open');
     aboutPage.setAttribute('aria-hidden', 'false');
@@ -1691,6 +1829,11 @@
     if(aboutPageEl){
       aboutPageEl.classList.remove('is-open');
       aboutPageEl.setAttribute('aria-hidden', 'true');
+    }
+    const c1PageEl = document.getElementById('c1Page');
+    if(c1PageEl){
+      c1PageEl.classList.remove('is-open');
+      c1PageEl.setAttribute('aria-hidden', 'true');
     }
     contactPage.classList.add('is-open');
     contactPage.setAttribute('aria-hidden', 'false');
