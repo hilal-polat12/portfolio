@@ -1356,6 +1356,8 @@
 
   function showProduct(section, id){
     closeC1();
+    const heroEl = document.querySelector('.hero');
+    if(heroEl) heroEl.style.display = 'none';
     const cards = document.querySelectorAll('#' + section + ' .card');
     let card = null;
 
@@ -1451,6 +1453,8 @@
     page.classList.remove('is-open');
     page.setAttribute('aria-hidden','true');
     closeC1();
+    const heroEl = document.querySelector('.hero');
+    if(heroEl) heroEl.style.display = '';
     document.querySelectorAll('main > section').forEach(function(section){
       section.style.display='';
     });
@@ -1465,6 +1469,8 @@
   function showC1(){
     page.classList.remove('is-open');
     page.setAttribute('aria-hidden','true');
+    const heroEl = document.querySelector('.hero');
+    if(heroEl) heroEl.style.display = 'none';
     document.querySelectorAll('main > section').forEach(function(sec){
       sec.style.display='none';
     });
@@ -1736,6 +1742,8 @@
     document.querySelectorAll('main > section').forEach(function(section){
       section.style.display = 'none';
     });
+    const heroEl = document.querySelector('.hero');
+    if(heroEl) heroEl.style.display = 'none';
     const productPage = document.getElementById('productPage');
     if(productPage){
       productPage.classList.remove('is-open');
@@ -1775,6 +1783,8 @@
     document.querySelectorAll('main > section').forEach(function(section){
       section.style.display = 'none';
     });
+    const heroEl = document.querySelector('.hero');
+    if(heroEl) heroEl.style.display = 'none';
     const productPage = document.getElementById('productPage');
     if(productPage){
       productPage.classList.remove('is-open');
@@ -1815,6 +1825,8 @@
     document.querySelectorAll('main > section').forEach(function(section){
       section.style.display = 'none';
     });
+    const heroEl = document.querySelector('.hero');
+    if(heroEl) heroEl.style.display = 'none';
     const productPage = document.getElementById('productPage');
     if(productPage){
       productPage.classList.remove('is-open');
