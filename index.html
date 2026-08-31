@@ -324,7 +324,7 @@
 .product-back:hover{color:var(--white)}
 .product-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:48px;align-items:start}
 .product-image{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.product-image img{display:block;width:100%;aspect-ratio:4/3;object-fit:cover;object-position:center}
+.product-image img{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;object-position:center}
 .product-gallery{display:flex;gap:8px;padding:10px;background:var(--card-bg)}
 .product-gallery img{width:64px;height:64px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:pointer;opacity:.65;transition:opacity .15s,border-color .15s}
 .product-gallery img:hover{opacity:1}
@@ -1118,8 +1118,8 @@
         <h2>Aircraft Parts</h2>
       </div>
       <div class="grid">
-        <div class="card" onclick="window.location.hash='aircraft/c1';" data-tech="Optimum panel count of 3 per wing, sized against a 25 kN actuator power threshold, with 11.47 kN carried per panel. Certification load chain runs Limit 6.91 kN, Ultimate 10.37 kN (x1.5), Fail-Safe Design Load 12.96 kN (x1.25), a combined x1.875 factor validated across 600,000 certification test cycles. Catastrophic failure probability sits at 6.0x10^-11 per flight hour against the CS-25.1309 threshold of 10^-9, a 16.7x safety margin. Panel natural frequency of 56.2 Hz stays well clear of the 6-10 Hz wing torsion band, keeping flutter response separated and favorable. Over Design Service Goal life the system nets +285,514 kg of fuel and a +$256,963 economic benefit, the only positive outcome across the aircraft classes studied. Recommended inspection interval is every 7,500 flights against a 75,000-flight DSG." data-gallery="images/C1.2.jpg|Retractable wing flap cover system, open takeoff configuration, isometric view;images/C1.3.jpg|Wing flap cover system, fully closed cruise configuration, flush with wing skin;images/C1.4.jpg|Wing flap cover system, front-facing view of the fail-safe hinge and actuator linkage mechanism;images/C1.5.png|Original conceptual CAD study, 737-800 right and left wing, closed and open positions">
-          <div class="thumb thumb-img"><img src="images/C1.1.jpg" alt="Complete Boeing 737-800 style aircraft showing the retractable wing flap cover system installed near the wing root"></div>
+        <div class="card" onclick="window.location.hash='aircraft/c1';" data-tech="Optimum panel count of 3 per wing, sized against a 25 kN actuator power threshold, with 11.47 kN carried per panel. Certification load chain runs Limit 6.91 kN, Ultimate 10.37 kN (x1.5), Fail-Safe Design Load 12.96 kN (x1.25), a combined x1.875 factor validated across 600,000 certification test cycles. Catastrophic failure probability sits at 6.0x10^-11 per flight hour against the CS-25.1309 threshold of 10^-9, a 16.7x safety margin. Panel natural frequency of 56.2 Hz stays well clear of the 6-10 Hz wing torsion band, keeping flutter response separated and favorable. Over Design Service Goal life the system nets +285,514 kg of fuel and a +$256,963 economic benefit, the only positive outcome across the aircraft classes studied. Recommended inspection interval is every 7,500 flights against a 75,000-flight DSG." data-gallery="images/C1.1.jpg|Complete Boeing 737-800 style aircraft showing the retractable wing flap cover system installed near the wing root;images/C1.2.jpg|Retractable wing flap cover system, open takeoff configuration, isometric view;images/C1.3.jpg|Wing flap cover system, fully closed cruise configuration, flush with wing skin;images/C1.4.jpg|Wing flap cover system, front-facing view of the fail-safe hinge and actuator linkage mechanism;images/C1.5.png|Original conceptual CAD study, 737-800 right and left wing, closed and open positions">
+          <div class="thumb thumb-img-dark"><img src="images/C1.1.jpg" alt="Complete Boeing 737-800 style aircraft showing the retractable wing flap cover system installed near the wing root"></div>
           <div class="card-body">
             <span class="card-tag">Code: C1 · Aircraft Wing Flap Cover</span>
             <h3>Retractable wing flap cover system</h3>
@@ -1287,6 +1287,10 @@
       navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#miniature'));
       return;
     }
+    if(/^#aircraft\/c[1-9]\d*$/.test(hash)){
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#aircraft'));
+      return;
+    }
 
     // Normal in-page flow: scroll-position based, with a bottom-of-page snap
     let currentId = sections[0] ? sections[0].id : null;
@@ -1403,6 +1407,8 @@
       backLink.innerHTML = backLabels[section] || ('← Back to ' + section);
     }
 
+    currentSection = section;
+
     document.querySelectorAll('main > section').forEach(function(sec){
       sec.style.display='none';
     });
@@ -1411,12 +1417,18 @@
     window.scrollTo(0,0);
   }
 
+  let currentSection = null;
+
   function closeProduct(){
     page.classList.remove('is-open');
     page.setAttribute('aria-hidden','true');
     document.querySelectorAll('main > section').forEach(function(section){
       section.style.display='';
     });
+    if(currentSection){
+      const target = document.getElementById(currentSection);
+      if(target) target.scrollIntoView();
+    }
   }
 
   function route(){
