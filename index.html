@@ -1312,7 +1312,7 @@
       navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === hash));
       return;
     }
-    if(/^#home\/h(?:[1-9]|[1-4][0-9]|50)$/.test(hash) || hash === '#cart'){
+    if(/^#home\/h[1-9]\d*$/.test(hash) || hash === '#cart'){
       navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#home'));
       return;
     }
@@ -1344,7 +1344,7 @@
   window.addEventListener('hashchange', updateActiveNav);
   updateActiveNav();
 
-// Product pages: #home/h1 ... #home/h51, #miniature/m1 ...
+// Product pages: #home/h1, h2, h3 ... (any hNN), #miniature/m1 ...
 (function(){
   const page = document.getElementById('productPage');
   const image = document.getElementById('productImage');
@@ -1497,7 +1497,7 @@
   }
 
   function route(){
-    const homeMatch=window.location.hash.match(/^#home\/(h(?:[1-9]|[1-4][0-9]|50))$/i);
+    const homeMatch=window.location.hash.match(/^#home\/(h[1-9]\d*)$/i);
     const miniMatch=window.location.hash.match(/^#miniature\/(m[1-9]\d*)$/i);
     const aircraftMatch=window.location.hash.match(/^#aircraft\/(c[1-9]\d*)$/i);
     if(homeMatch) showProduct('home', homeMatch[1].toLowerCase());
