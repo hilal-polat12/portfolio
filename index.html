@@ -605,7 +605,7 @@
       </div>
       <div class="spec-card">
         <div class="spec-row"><span>Based In</span><span>Türkiye</span></div>
-        <div class="spec-row"><span>Focus Areas</span><span>Aircraft &amp; Drone, Automotive, Home Decoration, Miniature</span></div>
+        <div class="spec-row"><span>Focus Areas</span><span>Home &amp; Decoration (Vases &amp; Vessels, Floor Lamps, Figurines, Clocks &amp; Mirrors, Wall Reliefs &amp; Panels), Custom Projects (Mechanical, Aircraft, Miniature &amp; Tabletop)</span></div>
         <div class="spec-row"><span>3D Tools</span><span>Blender, ZBrush, C4D</span></div>
         <div class="spec-row"><span>CAD Tools</span><span>SolidWorks, Fusion 360</span></div>
         <div class="spec-row"><span>Available For</span><span>Freelance / Contract</span></div>
@@ -1297,7 +1297,7 @@
         LinkedIn
       </a>
     </div>
-    <p class="contact-page-intro">Looking for help with an Aircraft &amp; Drone, Automotive, Home&amp;Decoration, or Miniature&amp;Tabletop design? Send a message and I'll get back to you.</p>
+    <p class="contact-page-intro">Looking for help with a Home &amp; Decoration piece or a Custom Project (mechanical, aircraft, miniature &amp; tabletop) design? Send a message and I'll get back to you.</p>
 
     <form class="contact-form" id="contactForm">
       <div class="form-row">
@@ -1624,7 +1624,12 @@
 
   function routeSubcat(){
     const hash = window.location.hash.toLowerCase();
-    if(!Object.prototype.hasOwnProperty.call(hashToSubcat, hash)) return;
+    if(!Object.prototype.hasOwnProperty.call(hashToSubcat, hash)){
+      // Not a Home&Decoration hash (About, Contact, Custom Projects, Cart,
+      // or a product detail page) — don't leave a stale category highlighted.
+      navLinks.forEach(function(l){ l.classList.remove('active'); });
+      return;
+    }
     applySubcat(hashToSubcat[hash]);
     if(homeSection) window.scrollToSection(homeSection);
   }
