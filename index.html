@@ -466,9 +466,12 @@
 .about-page.is-open{display:block}
 .about-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;color:var(--white);font-size:14px;font-weight:600;text-decoration:none}
 .about-back:hover{color:var(--white)}
-.about-stat{display:flex;align-items:baseline;gap:10px;margin-bottom:20px}
-.about-stat-number{font-family:var(--display);font-size:44px;font-weight:700;color:var(--white);line-height:1}
-.about-stat-label{font-size:14px;font-weight:600;color:rgba(255,255,255,0.7);text-transform:uppercase;letter-spacing:.04em}
+.dim-line{display:flex;align-items:center;margin-bottom:28px;}
+.dim-tick{width:1px;height:14px;background:var(--white);opacity:.55;flex-shrink:0;}
+.dim-track{flex:0 1 200px;height:1px;background:rgba(255,255,255,0.22);position:relative;margin:0 8px;}
+.dim-fill{position:absolute;left:0;top:0;height:100%;width:0%;background:var(--white);}
+.dim-value{margin-left:16px;font-family:var(--display);font-size:22px;font-weight:700;color:var(--white);white-space:nowrap;}
+.dim-value span.dim-value-label{font-size:13px;font-weight:600;color:rgba(255,255,255,0.65);margin-left:6px;}
 .about-page h1{font-family:var(--display);font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--white);margin-bottom:24px}
 .about-page-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}
 .about-page-text p{color:var(--white);font-size:15px;line-height:1.75;margin-bottom:16px}
@@ -650,9 +653,11 @@
 
 <div id="aboutPage" class="about-page" aria-hidden="true">
   <div class="wrap">
-    <div class="about-stat">
-      <span class="about-stat-number" id="totalDesignsCount">0</span>
-      <span class="about-stat-label">Designs &amp; counting</span>
+    <div class="dim-line" id="dimLine">
+      <div class="dim-tick"></div>
+      <div class="dim-track"><div class="dim-fill" id="dimFill"></div></div>
+      <div class="dim-tick"></div>
+      <div class="dim-value"><span id="totalDesignsCount">0</span><span class="dim-value-label">Designs</span></div>
     </div>
     <h1>About</h1>
     <div class="about-page-grid">
@@ -2039,6 +2044,7 @@
     if(designCountAnimated) return;
     designCountAnimated = true;
     var el = document.getElementById('totalDesignsCount');
+    var fill = document.getElementById('dimFill');
     if(!el) return;
     var total = document.querySelectorAll('.card').length;
     var start = null;
@@ -2048,8 +2054,12 @@
       var progress = Math.min((ts - start) / duration, 1);
       var eased = 1 - Math.pow(1 - progress, 3);
       el.textContent = Math.round(eased * total);
+      if(fill) fill.style.width = (eased * 100) + '%';
       if(progress < 1) requestAnimationFrame(step);
-      else el.textContent = total + '+';
+      else {
+        el.textContent = total + '+';
+        if(fill) fill.style.width = '100%';
+      }
     }
     requestAnimationFrame(step);
   }
