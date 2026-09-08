@@ -59,8 +59,16 @@
   .logo{
     font-family:var(--display);
     font-size:22px;font-weight:700;letter-spacing:-0.01em;
+    display:flex;flex-direction:column;gap:2px;line-height:1.15;
   }
   .logo span{color:var(--red);}
+  .logo-tagline{
+    font-family:'Inter', sans-serif;
+    font-size:13px;font-weight:500;font-style:italic;letter-spacing:0;
+    color:var(--white);
+    text-transform:none;
+  }
+  .logo .logo-tagline{color:var(--white);}
   .top-right{display:flex;align-items:center;gap:22px;}
   .lang{
     display:flex;align-items:center;gap:6px;
@@ -122,25 +130,56 @@
   .navbar a.active::after{transform:scaleX(1);}
   .navbar a svg{width:13px;height:13px;stroke:currentColor;opacity:0.6;}
 
-  /* ---------- hero ---------- */
+  /* ---------- hero / featured marquee ---------- */
   .hero{
     background:
       radial-gradient(circle at 20% 20%, rgba(255,255,255,0.06), transparent 45%),
       radial-gradient(circle at 80% 80%, rgba(0,0,0,0.25), transparent 55%),
       linear-gradient(160deg, var(--red) 0%, #4a0e18 100%);
-    padding:40px 0 24px;
+    padding:28px 0;
     position:relative;
     overflow:hidden;
   }
-  .hero h1{
-    font-family:var(--display);
-    font-size:clamp(28px,3.4vw,38px);
-    font-weight:700;
-    letter-spacing:-0.01em;
-    color:var(--white);
-    text-align:center;
+  .marquee-wrap{
+    overflow:hidden;
+    -webkit-mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
+    mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
   }
-  .hero h1 span{color:var(--white);}
+  .marquee-track{
+    display:flex;
+    gap:20px;
+    width:max-content;
+    animation:marquee-scroll 60s linear infinite;
+  }
+  .marquee-track:hover{animation-play-state:paused;}
+  @keyframes marquee-scroll{
+    from{transform:translateX(0);}
+    to{transform:translateX(-50%);}
+  }
+  .marquee-card{
+    flex:0 0 220px;
+    display:block;
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    background:var(--card-bg);
+    transition:transform .25s, border-color .25s;
+  }
+  .marquee-card:hover{transform:translateY(-4px);border-color:rgba(255,255,255,0.3);}
+  .marquee-thumb{aspect-ratio:4/3;background:#fff;overflow:hidden;}
+  .marquee-thumb img{width:100%;height:100%;object-fit:contain;padding:6px;}
+  .marquee-body{padding:10px 12px;}
+  .marquee-code{
+    font-size:11px;font-weight:600;color:rgba(255,255,255,0.55);
+    text-transform:uppercase;letter-spacing:0.04em;display:block;margin-bottom:4px;
+  }
+  .marquee-name{
+    font-family:var(--display);
+    font-size:14px;font-weight:600;color:var(--white);line-height:1.3;
+  }
+  @media (max-width:600px){
+    .marquee-card{flex:0 0 160px;}
+  }
 
   /* ---------- section ---------- */
   section.category{
@@ -459,7 +498,7 @@
 
 <div class="topbar">
   <div class="wrap topbar-inner">
-    <a href="/" class="logo" id="logoHome">Hilal Polat</a>
+    <a href="/" class="logo" id="logoHome">Hilal Polat<span class="logo-tagline">Mechanical &amp; Industrial &amp; 3D Design Projects</span></a>
     <div class="top-right">
       <div class="top-links">
         <a href="#custom" id="customLink">Custom Projects</a>
@@ -487,7 +526,9 @@
 
 <div class="hero">
   <div class="wrap">
-    <h1>Mechanical &amp; Industrial &amp; <span>3D Design</span> Projects</h1>
+    <div class="marquee-wrap">
+      <div class="marquee-track" id="featuredTrack"></div>
+    </div>
   </div>
 </div>
 
@@ -2057,6 +2098,54 @@
       });
     });
   }
+})();
+
+// Featured products marquee (hero banner)
+(function(){
+  // Öne çıkarmak istediğiniz ürün kodlarını buraya yazın (küçük harf, h1-h60)
+  // Kategoriler karışık sırayla yerleştirildi: Wall Reliefs, Vases, Floor Lamps, Figurines
+  var featuredCodes = ['h50', 'h1', 'h23', 'h33', 'h51', 'h4', 'h27', 'h36', 'h53', 'h10', 'h30', 'h54', 'h11', 'h55', 'h14', 'h57', 'h17', 'h59'];
+
+  var track = document.getElementById('featuredTrack');
+  if(!track) return;
+
+  var allCards = document.querySelectorAll('.card[onclick]');
+  function findCardByCode(code){
+    var needle = "home/" + code + "'";
+    for(var i = 0; i < allCards.length; i++){
+      if(allCards[i].getAttribute('onclick').indexOf(needle) !== -1) return allCards[i];
+    }
+    return null;
+  }
+
+  var cards = featuredCodes.map(function(code){
+    var source = findCardByCode(code);
+    if(!source) return null;
+    var img = source.querySelector('.thumb img');
+    var title = source.querySelector('h3');
+    var tag = source.querySelector('.card-tag');
+    var hash = 'home/' + code;
+    return {
+      href: '#' + hash,
+      imgSrc: img ? img.getAttribute('src') : '',
+      imgAlt: img ? img.getAttribute('alt') : '',
+      name: title ? title.textContent : '',
+      tag: tag ? tag.textContent : ''
+    };
+  }).filter(Boolean);
+
+  if(!cards.length) return;
+
+  var loop = cards.concat(cards);
+  track.innerHTML = loop.map(function(c){
+    return '<a class="marquee-card" href="' + c.href + '">' +
+      '<div class="marquee-thumb"><img src="' + c.imgSrc + '" alt="' + c.imgAlt + '"></div>' +
+      '<div class="marquee-body">' +
+        '<span class="marquee-code">' + c.tag + '</span>' +
+        '<span class="marquee-name">' + c.name + '</span>' +
+      '</div>' +
+    '</a>';
+  }).join('');
 })();
 
 </script>
