@@ -618,7 +618,7 @@
   <section class="category" id="home">
     <div class="wrap">
       <div class="cat-head">
-        <h2>Home&amp;Decoration</h2>
+        <h2 id="homeCatTitle">Home</h2>
       </div>
       <div class="grid">
         <div class="card" data-subcat="vases" onclick="window.location.hash='home/h1';" data-tech="Base-down orientation lets the 12-degree lean print without extra supports, though the shifted center of gravity means the base footprint is worth double-checking, or a hidden flat-spot added, before scaling. Wall thickness ranges 1.2 to 4mm and should never dip below 1.2mm (3 perimeters at 0.4mm nozzle) through load-bearing sections. PLA holds the display finish well at 0.16-0.2mm layer height, dropping to 0.12mm on fine texture; PETG is the swap if the piece needs to hold water. Vase mode suits the single continuous wall, switching to 8-15% gyroid infill wherever the internal rib skeleton is modeled.">
@@ -1622,12 +1622,18 @@
     '#reliefs': 'reliefs'
   };
 
+  const catTitle = document.getElementById('homeCatTitle');
+
   function applySubcat(val){
     navLinks.forEach(function(l){ l.classList.toggle('active', l.getAttribute('data-subcat') === val); });
     cards.forEach(function(card){
       const show = (val === 'all' || card.getAttribute('data-subcat') === val);
       card.style.display = show ? '' : 'none';
     });
+    if(catTitle){
+      const activeLink = document.querySelector('.navbar-inner .subcat-nav-link[data-subcat="' + val + '"]');
+      catTitle.textContent = activeLink ? activeLink.textContent : 'Home';
+    }
   }
 
   function routeSubcat(){
