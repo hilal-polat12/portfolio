@@ -1555,11 +1555,20 @@
     if(backLink){
       var subcat = card.getAttribute('data-subcat');
       var backHash = section;
+      var subcatLabels = {
+        vases: 'Vases &amp; Vessels',
+        lamps: 'Floor Lamps',
+        figurines: 'Figurines',
+        clocks: 'Clocks &amp; Mirrors',
+        reliefs: 'Wall Reliefs &amp; Panels'
+      };
+      var labelText = backLabels[section] || ('← Back to ' + section);
       if(section === 'home' && subcat && subcat !== 'all'){
         backHash = subcat;
+        if(subcatLabels[subcat]) labelText = '← Back to ' + subcatLabels[subcat];
       }
       backLink.href = '#' + backHash;
-      backLink.innerHTML = backLabels[section] || ('← Back to ' + section);
+      backLink.innerHTML = labelText;
     }
 
     currentSection = section;
