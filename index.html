@@ -1709,7 +1709,11 @@
       return;
     }
     applySubcat(hashToSubcat[hash]);
-    if(homeSection) window.scrollToSection(homeSection);
+    if(hash === '#home'){
+      window.scrollTo({top:0, behavior:'auto'});
+    } else if(homeSection){
+      window.scrollToSection(homeSection);
+    }
   }
 
   window.addEventListener('hashchange', routeSubcat);
