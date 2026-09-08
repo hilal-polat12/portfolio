@@ -1616,10 +1616,8 @@
 
   function closeProduct(){
     page.classList.remove('page-visible');
-    setTimeout(function(){
-      page.classList.remove('is-open');
-      page.setAttribute('aria-hidden','true');
-    }, 200);
+    page.classList.remove('is-open');
+    page.setAttribute('aria-hidden','true');
     closeC1();
     document.querySelectorAll('main > section').forEach(function(section){
       section.style.display='';
