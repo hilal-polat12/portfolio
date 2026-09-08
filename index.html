@@ -1553,7 +1553,12 @@
     }
 
     if(backLink){
-      backLink.href = '#' + section;
+      var subcat = card.getAttribute('data-subcat');
+      var backHash = section;
+      if(section === 'home' && subcat && subcat !== 'all'){
+        backHash = subcat;
+      }
+      backLink.href = '#' + backHash;
       backLink.innerHTML = backLabels[section] || ('← Back to ' + section);
     }
 
