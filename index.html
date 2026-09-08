@@ -518,7 +518,7 @@
       <a href="#home" class="active subcat-nav-link" data-subcat="all">Home</a>
       <a href="#vases" class="subcat-nav-link" data-subcat="vases">Vases &amp; Vessels</a>
       <a href="#lamps" class="subcat-nav-link" data-subcat="lamps">Floor Lamps</a>
-      <a href="#figurines" class="subcat-nav-link" data-subcat="figurines">Figurines</a>
+      <a href="#figurines" class="subcat-nav-link" data-subcat="figurines">Figurines &amp; Sculptures</a>
       <a href="#clocks" class="subcat-nav-link" data-subcat="clocks">Clocks &amp; Mirrors</a>
       <a href="#reliefs" class="subcat-nav-link" data-subcat="reliefs">Wall Reliefs &amp; Panels</a>
     </div>
@@ -647,7 +647,7 @@
       </div>
       <div class="spec-card">
         <div class="spec-row"><span>Based In</span><span>Türkiye</span></div>
-        <div class="spec-row"><span>Focus Areas</span><span>Home &amp; Decoration (Vases &amp; Vessels, Floor Lamps, Figurines, Clocks &amp; Mirrors, Wall Reliefs &amp; Panels), Custom Projects (Mechanical, Aircraft, Miniature &amp; Tabletop)</span></div>
+        <div class="spec-row"><span>Focus Areas</span><span>Home &amp; Decoration (Vases &amp; Vessels, Floor Lamps, Figurines &amp; Sculptures, Clocks &amp; Mirrors, Wall Reliefs &amp; Panels), Custom Projects (Mechanical, Aircraft, Miniature &amp; Tabletop)</span></div>
         <div class="spec-row"><span>3D Tools</span><span>Blender, ZBrush, C4D</span></div>
         <div class="spec-row"><span>CAD Tools</span><span>SolidWorks, Fusion 360</span></div>
         <div class="spec-row"><span>Available For</span><span>Freelance / Contract</span></div>
@@ -1406,14 +1406,14 @@
     }
   });
 
-  // Logo: go to true homepage (root, no hash) and show the hero
+  // Logo: go to true homepage (#home) and scroll to the very top
   const logoHome = document.getElementById('logoHome');
   if(logoHome){
     logoHome.addEventListener('click', function(e){
       e.preventDefault();
-      history.pushState(null, '', window.location.pathname);
+      history.pushState(null, '', window.location.pathname + '#home');
       window.dispatchEvent(new HashChangeEvent('hashchange'));
-      window.scrollTo({top:0, behavior:'smooth'});
+      window.scrollTo({top:0, behavior:'auto'});
     });
   }
 
@@ -1558,7 +1558,7 @@
       var subcatLabels = {
         vases: 'Vases &amp; Vessels',
         lamps: 'Floor Lamps',
-        figurines: 'Figurines',
+        figurines: 'Figurines &amp; Sculptures',
         clocks: 'Clocks &amp; Mirrors',
         reliefs: 'Wall Reliefs &amp; Panels'
       };
