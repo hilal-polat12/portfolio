@@ -130,17 +130,6 @@
     position:relative;
     overflow:hidden;
   }
-  .marquee-label{
-    display:flex;align-items:center;gap:7px;
-    font-size:11.5px;font-weight:700;color:var(--white);
-    text-transform:uppercase;letter-spacing:0.08em;
-    margin-bottom:12px;
-  }
-  .marquee-label span{
-    width:6px;height:6px;border-radius:50%;
-    background:var(--white);
-    display:inline-block;
-  }
   .marquee-wrap{
     overflow:hidden;
     -webkit-mask-image:linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent);
@@ -177,6 +166,15 @@
   .marquee-name{
     font-family:var(--display);
     font-size:14px;font-weight:600;color:var(--white);line-height:1.3;
+    display:block;
+  }
+  .marquee-badge{
+    display:inline-flex;align-items:center;gap:4px;
+    margin-top:6px;
+    font-size:10.5px;font-weight:700;color:var(--red);
+    letter-spacing:0.02em;
+    background:var(--white);
+    padding:3px 8px;border-radius:10px;
   }
   @media (max-width:600px){
     .marquee-card{flex:0 0 160px;}
@@ -539,7 +537,6 @@
 
 <div class="hero">
   <div class="wrap">
-    <div class="marquee-label"><span></span>Bestsellers</div>
     <div class="marquee-wrap">
       <div class="marquee-track" id="featuredTrack"></div>
     </div>
@@ -2216,6 +2213,7 @@
       '<div class="marquee-body">' +
         '<span class="marquee-code">' + c.tag + '</span>' +
         '<span class="marquee-name">' + c.name + '</span>' +
+        '<span class="marquee-badge">Bestseller</span>' +
       '</div>' +
     '</a>';
   }).join('');
