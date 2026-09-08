@@ -476,11 +476,11 @@
   <div class="navbar">
     <div class="wrap navbar-inner">
       <a href="#home" class="active subcat-nav-link" data-subcat="all">Home</a>
-      <a href="#home" class="subcat-nav-link" data-subcat="vases">Vases &amp; Vessels</a>
-      <a href="#home" class="subcat-nav-link" data-subcat="lamps">Floor Lamps</a>
-      <a href="#home" class="subcat-nav-link" data-subcat="figurines">Figurines</a>
-      <a href="#home" class="subcat-nav-link" data-subcat="clocks">Clocks &amp; Mirrors</a>
-      <a href="#home" class="subcat-nav-link" data-subcat="reliefs">Wall Reliefs &amp; Panels</a>
+      <a href="#vases" class="subcat-nav-link" data-subcat="vases">Vases &amp; Vessels</a>
+      <a href="#lamps" class="subcat-nav-link" data-subcat="lamps">Floor Lamps</a>
+      <a href="#figurines" class="subcat-nav-link" data-subcat="figurines">Figurines</a>
+      <a href="#clocks" class="subcat-nav-link" data-subcat="clocks">Clocks &amp; Mirrors</a>
+      <a href="#reliefs" class="subcat-nav-link" data-subcat="reliefs">Wall Reliefs &amp; Panels</a>
     </div>
   </div>
 </div>
@@ -1266,26 +1266,6 @@
     </div>
   </section>
 
-  <section class="category" id="automotive">
-    <div class="wrap">
-      <div class="cat-head">
-        <h2>Automotive Parts</h2>
-      </div>
-      <div class="grid">
-      </div>
-    </div>
-  </section>
-
-  <section class="category" id="aircraft">
-    <div class="wrap">
-      <div class="cat-head">
-        <h2>Aircraft &amp; Drone</h2>
-      </div>
-      <div class="grid">
-      </div>
-    </div>
-  </section>
-
   <section class="category" id="custom">
     <div class="wrap">
       <div class="cat-head">
@@ -1301,16 +1281,6 @@
             <button type="button" class="card-add-cart">Add to Cart</button>
           </div>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="category" id="machine">
-    <div class="wrap">
-      <div class="cat-head">
-        <h2>Machine Parts</h2>
-      </div>
-      <div class="grid">
       </div>
     </div>
   </section>
@@ -1571,15 +1541,27 @@
 
   let currentSection = null;
 
+  function applyTopLevelView(){
+    const hash = window.location.hash.toLowerCase();
+    const isCustom = (hash === '#custom' || hash === '#miniature');
+    const homeEl = document.getElementById('home');
+    const miniEl = document.getElementById('miniature');
+    const customEl = document.getElementById('custom');
+    if(homeEl) homeEl.style.display = isCustom ? 'none' : '';
+    if(miniEl) miniEl.style.display = isCustom ? '' : 'none';
+    if(customEl) customEl.style.display = isCustom ? '' : 'none';
+    const heroEl = document.querySelector('.hero');
+    if(heroEl) heroEl.style.display = isCustom ? 'none' : '';
+  }
+
   function closeProduct(){
     page.classList.remove('is-open');
     page.setAttribute('aria-hidden','true');
     closeC1();
-    const heroEl = document.querySelector('.hero');
-    if(heroEl) heroEl.style.display = '';
     document.querySelectorAll('main > section').forEach(function(section){
       section.style.display='';
     });
+    applyTopLevelView();
     if(currentSection){
       const target = document.getElementById(currentSection);
       if(target) target.scrollIntoView();
@@ -1626,10 +1608,19 @@
   route();
 })();
 
-// Home & Decoration subcategory filters (top navbar)
+// Home & Decoration subcategory "pages" (own hash per category, same underlying grid)
 (function(){
   const navLinks = document.querySelectorAll('.navbar-inner .subcat-nav-link');
   const cards = document.querySelectorAll('#home .grid > .card');
+  const homeSection = document.getElementById('home');
+  const hashToSubcat = {
+    '#home': 'all',
+    '#vases': 'vases',
+    '#lamps': 'lamps',
+    '#figurines': 'figurines',
+    '#clocks': 'clocks',
+    '#reliefs': 'reliefs'
+  };
 
   function applySubcat(val){
     navLinks.forEach(function(l){ l.classList.toggle('active', l.getAttribute('data-subcat') === val); });
@@ -1639,9 +1630,15 @@
     });
   }
 
-  navLinks.forEach(function(link){
-    link.addEventListener('click', function(){ applySubcat(link.getAttribute('data-subcat')); });
-  });
+  function routeSubcat(){
+    const hash = window.location.hash.toLowerCase();
+    if(!Object.prototype.hasOwnProperty.call(hashToSubcat, hash)) return;
+    applySubcat(hashToSubcat[hash]);
+    if(homeSection) homeSection.scrollIntoView();
+  }
+
+  window.addEventListener('hashchange', routeSubcat);
+  routeSubcat();
 })();
 
 // Shopping cart
