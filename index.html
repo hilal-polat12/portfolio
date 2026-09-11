@@ -664,7 +664,7 @@
       </div>
       <div class="spec-card">
         <div class="spec-row"><span>Based In</span><span>Türkiye</span></div>
-        <div class="spec-row"><span>Focus Areas</span><span>Home &amp; Decoration (Vases &amp; Curios, Floor Lamps, Figurines &amp; Sculptures, Clocks &amp; Mirrors, Wall Reliefs &amp; Panels), Custom Projects (Mechanical, Aircraft)</span></div>
+        <div class="spec-row"><span>Focus Areas</span><span>Home &amp; Decoration (Vases &amp; Curios, Floor Lamps, Figurines &amp; Sculptures, Clocks &amp; Mirrors, Wall Reliefs &amp; Panels), Custom Projects (Mechanical, Aircraft, Automotive)</span></div>
         <div class="spec-row"><span>3D Tools</span><span>Blender, ZBrush, C4D</span></div>
         <div class="spec-row"><span>CAD Tools</span><span>SolidWorks, Fusion 360</span></div>
         <div class="spec-row"><span>Available For</span><span>Freelance / Contract</span></div>
@@ -1269,6 +1269,23 @@
         </div>
       </div>
     </div>
+
+    <div class="wrap">
+      <div class="cat-head">
+        <h2>Automotive Parts</h2>
+      </div>
+      <div class="grid">
+        <div class="card" onclick="window.location.hash='automotive/a1';" data-tech="Parametric dimensions: overall diameter/length 110mm, secondary dimension 44mm, nominal wall/feature thickness 2mm — starting values, model to them directly or scale proportionally to match a specific vehicle or fitment. Tolerances: approximately 0.2% linear shrinkage on FDM prints; compensate hole diameters by adding 0.1-0.15mm for any fastener or press-fit feature. Assembly/connection method: press-fit friction joint, mating surfaces sized with a 0.15-0.20mm interference fit so the part snaps into its socket and stays seated under normal vibration without adhesive. Material and print profile: PLA on an FDM printer, 0.4mm nozzle, 0.16-0.20mm layer height, suitable for cosmetic or light-duty parts not exposed to sustained heat or load. Minimum feature size across the piece should not drop below roughly 0.8-1.0mm at full scale. Internal ribs/standoffs spaced at roughly 30-45mm intervals, kept under 2.5mm thick. Orientation follows the housing's natural flat-resting stance, no rafts needed." data-gallery="images/A1.1.jpg|High-Performance V8 Engine Cutaway, full assembled view showing both cylinder banks and exposed crankshaft;images/A1.2.jpg|V8 Engine Cutaway, isometric view with coolant passages tinted light blue and intake/exhaust manifolds visible;images/A1.3.jpg|V8 Engine Cutaway, close-up detail of piston, connecting rod and coolant channel routing;images/A1.4.jpg|V8 Engine Cutaway, side-angle view showing valve train, camshaft and oil pan" data-full-description="A cutaway display model of a high-performance V8 engine, built as a 3D-printable design brief rather than a rendered concept alone. The cross-section plane passes through the primary moving components, exposing full cylinder banks, piston positions at different points across the combustion cycle, a cross-sectioned crankshaft housing, and the routing of internal coolant passages. Every dimension, tolerance, and connection method is specified as a parametric, production-ready brief: press-fit assembly, FDM print profile, and shrinkage-compensated tolerances, developed for classroom, workshop, or display use.">
+          <div class="thumb thumb-img-dark"><img src="images/A1.1.jpg" alt="High-Performance V8 Engine Cutaway, full assembled view showing both cylinder banks and exposed crankshaft"></div>
+          <div class="card-body">
+            <span class="card-tag">Code: A1 · 3D Print Design</span>
+            <h3>High-Performance V8 Engine Cutaway</h3>
+            <p>A cutaway display model exposing the full cylinder banks of a V8 engine layout, revealing piston positions across the combustion cycle, a cross-sectioned crankshaft housing, and the routing of internal coolant passages. Built as a parametric, production-ready 3D print brief rather than a rendered concept alone.</p>
+            <button type="button" class="card-add-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
 
@@ -1283,7 +1300,7 @@
         LinkedIn
       </a>
     </div>
-    <p class="contact-page-intro">Looking for help with a Home &amp; Decoration piece or a Custom Project (mechanical, aircraft) design? Send a message and I'll get back to you.</p>
+    <p class="contact-page-intro">Looking for help with a Home &amp; Decoration piece or a Custom Project (mechanical, aircraft, automotive) design? Send a message and I'll get back to you.</p>
 
     <form class="contact-form" id="contactForm">
       <div class="form-row">
@@ -1390,7 +1407,8 @@
     else if(hash === '#contact') activeHref = '#contact';
     else if(
       hash === '#custom' ||
-      /^#aircraft\/c[1-9]\d*$/.test(hash)
+      /^#aircraft\/c[1-9]\d*$/.test(hash) ||
+      /^#automotive\/a[1-9]\d*$/.test(hash)
     ) activeHref = '#custom';
     // Any other hash (home, subcategory pages, product detail, cart) → no top-link active
     navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === activeHref));
@@ -1587,9 +1605,11 @@
   function route(){
     const homeMatch=window.location.hash.match(/^#home\/(h[1-9]\d*)$/i);
     const aircraftMatch=window.location.hash.match(/^#aircraft\/(c[1-9]\d*)$/i);
+    const customMatch=window.location.hash.match(/^#automotive\/(a[1-9]\d*)$/i);
     if(homeMatch) showProduct('home', homeMatch[1].toLowerCase());
     else if(aircraftMatch && aircraftMatch[1].toLowerCase() === 'c1') showC1();
     else if(aircraftMatch) showProduct('aircraft', aircraftMatch[1].toLowerCase());
+    else if(customMatch) showProduct('custom', customMatch[1].toLowerCase());
     else closeProduct();
   }
 
