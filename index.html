@@ -1567,6 +1567,10 @@
     if(c1Page){
       c1Page.classList.add('is-open');
       c1Page.setAttribute('aria-hidden','false');
+      c1Page.classList.remove('page-visible');
+      requestAnimationFrame(function(){
+        requestAnimationFrame(function(){ c1Page.classList.add('page-visible'); });
+      });
     }
     currentSection = 'custom';
     window.scrollTo(0,0);
@@ -1575,6 +1579,7 @@
   function closeC1(){
     if(c1Page){
       c1Page.classList.remove('is-open');
+      c1Page.classList.remove('page-visible');
       c1Page.setAttribute('aria-hidden','true');
     }
   }
