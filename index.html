@@ -274,8 +274,12 @@
     letter-spacing:0.02em;
     padding:8px 16px;
     border-radius:4px;
-    pointer-events:none;
+    text-decoration:none;
+    cursor:pointer;
+    transition:background .15s, transform .15s;
   }
+  .thumb .thumb-3d-badge{color:var(--red);background:var(--white);}
+  .thumb-3d-badge:hover{background:#f0f0f0;transform:translateY(-1px);}
 
   .card-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;}
   .card-add-cart{
@@ -1592,6 +1596,12 @@
             modelToggle.textContent = 'View Photo';
           }
         };
+        if(sessionStorage.getItem('openIn3D') === '1'){
+          sessionStorage.removeItem('openIn3D');
+          image.style.display = 'none';
+          modelViewer.style.display = '';
+          modelToggle.textContent = 'View Photo';
+        }
       } else {
         modelToggle.style.display = 'none';
         modelViewer.removeAttribute('src');
@@ -2379,9 +2389,17 @@
   document.querySelectorAll('.card[data-model]').forEach(function(card){
     var thumb = card.querySelector('.thumb');
     if(!thumb) return;
-    var badge = document.createElement('span');
+    var onclickAttr = card.getAttribute('onclick') || '';
+    var match = onclickAttr.match(/hash\s*=\s*'([^']+)'/);
+    var hash = match ? match[1] : null;
+    var badge = document.createElement('a');
     badge.className = 'thumb-3d-badge';
     badge.textContent = '3D';
+    if(hash) badge.href = '#' + hash;
+    badge.addEventListener('click', function(e){
+      e.stopPropagation();
+      sessionStorage.setItem('openIn3D', '1');
+    });
     thumb.appendChild(badge);
   });
 })();
