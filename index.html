@@ -264,6 +264,18 @@
   .thumb{overflow:hidden;}
   .thumb-img-dark img{width:100%;height:100%;object-fit:cover;transition:transform .4s ease;}
   .card:hover .thumb-img-dark img{transform:scale(1.08);}
+  .thumb-3d-badge{
+    position:absolute;
+    top:12px;right:12px;
+    z-index:3;
+    background:var(--white);
+    color:var(--red);
+    font-size:13px;font-weight:700;
+    letter-spacing:0.02em;
+    padding:8px 16px;
+    border-radius:4px;
+    pointer-events:none;
+  }
 
   .card-body{padding:14px 16px 16px;display:flex;flex-direction:column;flex:1;}
   .card-add-cart{
@@ -416,19 +428,19 @@
 .product-image{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative;aspect-ratio:4/3}
 .product-model-toggle{
   position:absolute;
-  bottom:16px;
-  right:16px;
+  bottom:20px;
+  right:20px;
   z-index:5;
-  background:var(--black);
-  color:var(--white);
-  border:1px solid rgba(255,255,255,0.25);
-  font-size:13.5px;font-weight:600;
-  padding:9px 16px;
-  border-radius:20px;
+  background:var(--white);
+  color:var(--red);
+  border:none;
+  font-size:15px;font-weight:700;
+  padding:14px 26px;
+  border-radius:4px;
   cursor:pointer;
-  transition:background .15s;
+  transition:background .15s, transform .15s;
 }
-.product-model-toggle:hover{background:#000;}
+.product-model-toggle:hover{background:#f0f0f0;transform:translateY(-1px);}
 .product-image img{display:block;width:100%;height:100%;object-fit:contain;object-position:center}
 .product-gallery{display:flex;gap:8px;padding:10px;background:var(--card-bg)}
 .product-gallery img{width:64px;height:64px;object-fit:cover;border-radius:4px;border:2px solid transparent;cursor:pointer;opacity:.65;transition:opacity .15s,border-color .15s}
@@ -2362,7 +2374,18 @@
   }
 })();
 
-// Featured products marquee (hero banner)
+// 3D badge on card thumbnails that have a model available
+(function(){
+  document.querySelectorAll('.card[data-model]').forEach(function(card){
+    var thumb = card.querySelector('.thumb');
+    if(!thumb) return;
+    var badge = document.createElement('span');
+    badge.className = 'thumb-3d-badge';
+    badge.textContent = '3D';
+    thumb.appendChild(badge);
+  });
+})();
+
 (function(){
   // Öne çıkarmak istediğiniz ürün kodlarını buraya yazın (küçük harf, h1-h60)
   // Kategoriler karışık sırayla yerleştirildi: Wall Reliefs, Vases, Floor Lamps, Figurines
