@@ -432,6 +432,14 @@
 .product-back:hover{color:var(--white)}
 .product-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:48px;align-items:start}
 .product-image{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative;aspect-ratio:4/3}
+.model-watermark-overlay{
+  position:absolute;
+  inset:0;
+  z-index:4;
+  pointer-events:none;
+  background-image:url("data:image/svg+xml,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20width='240'%20height='170'%3E%3Ctext%20x='-10'%20y='100'%20font-family='Arial,Helvetica,sans-serif'%20font-size='26'%20font-weight='700'%20fill='white'%20fill-opacity='0.4'%20transform='rotate(-30%20120%2085)'%3Ehilalpolat%3C/text%3E%3C/svg%3E");
+  background-repeat:repeat;
+}
 .product-model-toggle{
   position:absolute;
   bottom:20px;
@@ -608,6 +616,7 @@
       <div class="product-image">
         <img id="productImage" src="" alt="">
         <model-viewer id="productModelViewer" style="display:none; width:100%; height:100%;" camera-controls auto-rotate shadow-intensity="1" exposure="1"></model-viewer>
+        <div id="productModelWatermark" class="model-watermark-overlay" style="display:none;"></div>
         <button type="button" id="productModelToggle" class="product-model-toggle" style="display:none;">View in 3D</button>
         <div id="productGallery" class="product-gallery" style="display:none;"></div>
       </div>
@@ -1525,6 +1534,7 @@
   const gallery = document.getElementById('productGallery');
   const modelViewer = document.getElementById('productModelViewer');
   const modelToggle = document.getElementById('productModelToggle');
+  const modelWatermark = document.getElementById('productModelWatermark');
   const code = document.getElementById('productCode');
   const title = document.getElementById('productTitle');
   const description = document.getElementById('productDescription');
@@ -1582,6 +1592,7 @@
     if(modelViewer && modelToggle){
       image.style.display = '';
       modelViewer.style.display = 'none';
+      if(modelWatermark) modelWatermark.style.display = 'none';
       modelToggle.textContent = 'View in 3D';
       if(modelSrc){
         modelViewer.setAttribute('src', modelSrc);
@@ -1590,11 +1601,13 @@
           const showingModel = modelViewer.style.display !== 'none';
           if(showingModel){
             modelViewer.style.display = 'none';
+            if(modelWatermark) modelWatermark.style.display = 'none';
             image.style.display = '';
             modelToggle.textContent = 'View in 3D';
           } else {
             image.style.display = 'none';
             modelViewer.style.display = '';
+            if(modelWatermark) modelWatermark.style.display = '';
             modelToggle.textContent = 'View Photo';
           }
         };
@@ -1602,6 +1615,7 @@
           sessionStorage.removeItem('openIn3D');
           image.style.display = 'none';
           modelViewer.style.display = '';
+          if(modelWatermark) modelWatermark.style.display = '';
           modelToggle.textContent = 'View Photo';
         }
       } else {
