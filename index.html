@@ -470,7 +470,8 @@
 .product-gallery img:hover{opacity:1}
 .product-gallery img.active{opacity:1;border-color:var(--white)}
 .product-info .product-code{display:block;margin-bottom:10px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--white)}
-.product-info .product-price{display:block;margin:0 0 16px;font-family:var(--display);font-size:24px;font-weight:700;color:var(--white)}
+.product-footer{display:flex;align-items:center;gap:16px;margin-top:24px;}
+.product-info .product-price{display:block;margin:0;font-family:var(--display);font-size:24px;font-weight:700;color:var(--white)}
 .product-info h1{margin:0 0 16px;font-family:var(--display);font-size:clamp(30px,4vw,48px);line-height:1.08;color:var(--white)}
 .product-info .product-description{color:var(--white);font-size:15px;line-height:1.7;margin:0 0 20px}
 .product-info .product-tech-label{display:block;margin-bottom:8px;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--white)}
@@ -638,14 +639,16 @@
       <div class="product-info">
         <span id="productCode" class="product-code"></span>
         <h1 id="productTitle"></h1>
-        <span id="productPrice" class="product-price"></span>
         <p id="productDescription" class="product-description"></p>
         <span id="productTechLabel" class="product-tech-label" style="display:none;">Technical Details</span>
         <p id="productTechnical" class="product-technical" style="display:none;"></p>
-        <button type="button" class="product-contact" id="productAddToCart">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
-          <span id="productAddToCartLabel">Add to Cart</span>
-        </button>
+        <div class="product-footer">
+          <span id="productPrice" class="product-price"></span>
+          <button type="button" class="product-contact" id="productAddToCart">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
+            <span id="productAddToCartLabel">Add to Cart</span>
+          </button>
+        </div>
       </div>
     </div>
   </div>
