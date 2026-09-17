@@ -388,8 +388,9 @@
   @media (max-width:640px){
     .grid{grid-template-columns:1fr;}
     .custom-col .grid{grid-template-columns:1fr;}
-    .navbar-inner{display:grid;grid-template-columns:repeat(3, 1fr);height:auto;padding:8px;gap:6px;}
-    .navbar a{justify-content:center;text-align:center;padding:8px 4px;white-space:normal;line-height:1.2;font-size:14px;}
+    .navbar-inner{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;height:auto;padding:8px 20px;gap:6px;}
+    .navbar-inner::-webkit-scrollbar{display:none;}
+    .navbar a{justify-content:center;text-align:center;padding:8px 12px;white-space:nowrap;line-height:1.2;font-size:14px;flex:0 0 auto;}
     .topbar-inner{height:auto;min-height:64px;padding:12px 0;gap:12px;flex-wrap:wrap;}
     .logo{font-size:19px;}
     .top-right{gap:8px;}
@@ -577,7 +578,6 @@
     <a href="/" class="logo" id="logoHome">Hilal Polat<span class="logo-tagline">Mechanical &amp; Industrial &amp; 3D Design Projects</span></a>
     <div class="top-right">
       <div class="top-links">
-        <a href="#custom" id="customLink">Custom Projects</a>
         <a href="#about" id="aboutLink">About</a>
         <a href="#contact" id="contactLink">Contact</a>
       </div>
@@ -635,92 +635,6 @@
   </div>
 </div>
 
-<div id="c1Page" class="product-page c1-page" aria-hidden="true">
-  <div class="wrap">
-    <a href="#custom" class="product-back">← Back to Custom Projects</a>
-
-    <div class="product-layout c1-intro-layout">
-      <div class="product-image">
-        <img src="images/C1.1.jpg" alt="Complete Boeing 737-800 style aircraft showing the retractable wing flap cover system installed near the wing root">
-      </div>
-      <div class="product-info">
-        <span class="product-code">Code: C1 · Mechanical Design</span>
-        <h1>Retractable wing flap cover system</h1>
-        <p class="product-description">A retractable, multi-panel cover fitted over the wing flap mechanism, designed to reduce parasite drag in cruise while folding back to expose the flap system for takeoff and landing. The system is engineered as a certification-track mechanical assembly rather than a decorative concept, with every panel dimension, hinge, and actuator tracing back to a specific load path or safety margin. Verified for the narrow-body jet wing platform, this is the only configuration in the underlying study to return a net positive fuel and economic outcome over its service life, which is why the design is built specifically around that aircraft class rather than as a universal fit. This walkthrough covers the aerodynamic case, the structural and certification load chain, the safety and failure analysis, and the net fuel and economic result behind the design.</p>
-        <button type="button" class="product-contact c1-add-cart" id="c1AddToCartTop">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
-          <span class="c1-cart-label">Add to Cart</span>
-        </button>
-      </div>
-    </div>
-
-    <div class="c1-row reverse">
-      <div class="c1-row-image"><img src="images/C1.2.jpg" alt="Retractable wing flap cover system, open takeoff configuration, isometric view"></div>
-      <div class="c1-row-text">
-        <h2>Aerodynamic Performance</h2>
-        <p>With the flap cover deployed, CLmax rises from an estimated 1.60 in clean configuration to 2.34 in landing configuration, cutting stall speed by 17.3% and landing distance by 31.6%. That gain comes with a drag cost the structure has to carry: 9.21 kN of flap drag at takeoff, climbing to 36.84 kN at landing, plus 2.631 kN of trim drag. These figures set the actuator sizing and the panel load case covered next.</p>
-      </div>
-    </div>
-
-    <div class="c1-row">
-      <div class="c1-row-image"><img src="images/C1.3.jpg" alt="Wing flap cover system, fully closed cruise configuration, flush with wing skin"></div>
-      <div class="c1-row-text">
-        <h2>Structural Load &amp; Certification</h2>
-        <p>The cover is split into 3 panels per wing, sized against a 25 kN actuator power threshold, each carrying 11.47 kN with a total actuator weight of 89.2 kg per wing. The most critical panel runs through the full certification load chain: a 6.91 kN limit load, an ultimate load of 10.37 kN at a 1.5x factor, and a fail-safe design load of 12.96 kN at a further 1.25x, a combined 1.875x factor validated across 600,000 certification test cycles. A torque-based hinge moment cross-check found the simple 5:1 leverage estimate understated real loading by 71%, so the moment-based method governs the design shown here.</p>
-      </div>
-    </div>
-
-    <div class="c1-row reverse">
-      <div class="c1-row-image"><img src="images/C1.4.jpg" alt="Wing flap cover system, front-facing view of the fail-safe hinge and actuator linkage mechanism"></div>
-      <div class="c1-row-text">
-        <h2>Safety &amp; Failure Analysis</h2>
-        <p>A single-panel asymmetry case, with a 170.37 kN lift difference between wings, produces a 1,448.6 kNm roll moment, the scenario the fail-safe hinge and dual load-path linkage are sized to survive. Across the system's 6 actuators, the probability of a catastrophic failure works out to 6.0x10^-11 per flight hour, a 16.7x margin against the CS-25.1309 threshold of 10^-9. A flutter check puts the estimated panel natural frequency at 56.2 Hz, well clear of the 6-10 Hz wing torsion band, keeping the two responses separated and the coupling risk low.</p>
-      </div>
-    </div>
-
-    <div class="c1-row">
-      <div class="c1-row-image"><img src="images/C1.5.png" alt="Original conceptual CAD study, 737-800 right and left wing, closed and open positions"></div>
-      <div class="c1-row-text">
-        <h2>Economics, Maintenance &amp; Project Status</h2>
-        <p>Netting the system's added weight and drag against the fuel it saves gives 25.438 kg of fuel savings per flight against a 21.632 kg weight and drag penalty, a net gain of 3.806 kg per flight. Carried across a 75,000-flight Design Service Goal, that comes to +285,514 kg of fuel and a +$256,963 economic benefit, the only positive result among the aircraft classes covered by the underlying study. Recommended inspection interval is every 7,500 flights. The project has completed 4 of 10 aircraft development stages (requirements definition, conceptual mechanism, aerodynamic analysis, and structural load/certification), with a conceptual-level preview of stage 5, detailed CAD; physical prototyping, CFD or wind tunnel verification, flight testing, and formal certification remain outside the current scope.</p>
-      </div>
-    </div>
-
-    <button type="button" class="product-contact c1-add-cart" id="c1AddToCartBottom">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
-      <span class="c1-cart-label">Add to Cart</span>
-    </button>
-  </div>
-</div>
-
-<div id="fullProductPage" class="product-page c1-page" aria-hidden="true">
-  <div class="wrap">
-    <a href="#custom" class="product-back" id="fullProductBack">← Back to Custom Projects</a>
-
-    <div class="product-layout c1-intro-layout">
-      <div class="product-image">
-        <img id="fpMainImage" src="" alt="">
-      </div>
-      <div class="product-info">
-        <span class="product-code" id="fpCode"></span>
-        <h1 id="fpTitle"></h1>
-        <p class="product-description" id="fpDescription"></p>
-        <button type="button" class="product-contact c1-add-cart" id="fpAddCartTop">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
-          <span class="c1-cart-label">Add to Cart</span>
-        </button>
-      </div>
-    </div>
-
-    <div id="fpRows"></div>
-
-    <button type="button" class="product-contact c1-add-cart" id="fpAddCartBottom">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
-      <span class="c1-cart-label">Add to Cart</span>
-    </button>
-  </div>
-</div>
-
 <div id="cartPage" class="cart-page" aria-hidden="true">
   <div class="wrap">
     <a href="#home" class="cart-back">← Continue browsing</a>
@@ -752,7 +666,7 @@
       </div>
       <div class="spec-card">
         <div class="spec-row"><span>Based In</span><span>Türkiye</span></div>
-        <div class="spec-row"><span>Focus Areas</span><span>Home &amp; Decoration (Vases &amp; Curios, Floor Lamps, Figurines &amp; Sculptures, Clocks &amp; Mirrors, Wall Reliefs &amp; Panels), Custom Projects (Mechanical, Aircraft, Automotive)</span></div>
+        <div class="spec-row"><span>Focus Areas</span><span>Home &amp; Decoration (Vases &amp; Curios, Floor Lamps, Figurines &amp; Sculptures, Clocks &amp; Mirrors, Wall Reliefs &amp; Panels)</span></div>
         <div class="spec-row"><span>3D Tools</span><span>Blender, ZBrush, C4D</span></div>
         <div class="spec-row"><span>CAD Tools</span><span>SolidWorks, Fusion 360</span></div>
         <div class="spec-row"><span>Available For</span><span>Freelance / Contract</span></div>
@@ -1347,59 +1261,6 @@
       </div>
     </div>
   </section>
-
-
-  <section class="category" id="custom">
-    <div class="wrap">
-      <div class="custom-split">
-        <div class="custom-col">
-          <div class="cat-head">
-            <h2>Aircraft &amp; Drone</h2>
-          </div>
-          <div class="grid">
-            <div class="card" onclick="window.location.hash='aircraft/c1';" data-tech="Optimum panel count of 3 per wing, sized against a 25 kN actuator power threshold, with 11.47 kN carried per panel. Certification load chain runs Limit 6.91 kN, Ultimate 10.37 kN (x1.5), Fail-Safe Design Load 12.96 kN (x1.25), a combined x1.875 factor validated across 600,000 certification test cycles. Catastrophic failure probability sits at 6.0x10^-11 per flight hour against the CS-25.1309 threshold of 10^-9, a 16.7x safety margin. Panel natural frequency of 56.2 Hz stays well clear of the 6-10 Hz wing torsion band, keeping flutter response separated and favorable. Over Design Service Goal life the system nets +285,514 kg of fuel and a +$256,963 economic benefit, the only positive outcome across the aircraft classes studied. Recommended inspection interval is every 7,500 flights against a 75,000-flight DSG." data-gallery="images/C1.1.jpg|Complete Boeing 737-800 style aircraft showing the retractable wing flap cover system installed near the wing root;images/C1.2.jpg|Retractable wing flap cover system, open takeoff configuration, isometric view;images/C1.3.jpg|Wing flap cover system, fully closed cruise configuration, flush with wing skin;images/C1.4.jpg|Wing flap cover system, front-facing view of the fail-safe hinge and actuator linkage mechanism;images/C1.5.png|Original conceptual CAD study, 737-800 right and left wing, closed and open positions" data-full-description="Multi-panel retractable wing flap cover system engineered around aerodynamic load optimization and certification-grade structural analysis. Verified for the narrow-body jet wing platform, the configuration is the only one in the study to deliver a net positive fuel and economic outcome over its service life. Full aerodynamic, structural/certification-load, and safety (FMEA) analysis complete, with 4 of 10 development stages finished through Structural Load/Certification and a conceptual preview of Detailed CAD.">
-              <div class="thumb thumb-img-dark"><img src="images/C1.1.jpg" alt="Complete Boeing 737-800 style aircraft showing the retractable wing flap cover system installed near the wing root"></div>
-              <div class="card-body">
-                <span class="card-tag">Code: C1 · Mechanical Design</span>
-                <h3>Retractable Wing Flap Cover System</h3>
-                <p>Multi-panel retractable wing flap cover system engineered around aerodynamic load optimization and certification-grade structural analysis. Verified for the narrow-body jet wing platform, the configuration is the only one in the study to deliver a net positive fuel and economic outcome over its service life.</p>
-                <button type="button" class="card-add-cart">Add to Cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="custom-col">
-          <div class="cat-head">
-            <h2>Automotive Parts</h2>
-          </div>
-          <div class="grid">
-            <div class="card" onclick="window.location.hash='automotive/a1';" data-sections="images/A1.2.jpg|V8 Engine Cutaway, isometric view with coolant passages tinted light blue and intake/exhaust manifolds visible|Design Intent|The cross-section plane, the exposed cylinder banks, and the press-fit friction joint are treated as fixed parameters of this design. Changing which components stay exposed or how the part locates moves the piece beyond what is documented here, so the relationship between the housing and the internal coolant routing is meant to be preserved if the model is scaled or adapted.;images/A1.3.jpg|V8 Engine Cutaway, close-up detail of piston, connecting rod and coolant channel routing|Geometry &amp; Construction|This part separates into the main housing volume, the cross-sectioned face revealing the piston, connecting rod, and crankshaft detail, and the coolant channel routing alongside it. Blocking out the cross-sectioned housing first carries the most modeling time, with piston and rod detail added once the primary cutaway silhouette is confirmed.;images/A1.4.jpg|V8 Engine Cutaway, side-angle view showing valve train, camshaft and oil pan|Printability &amp; Process Specifications|Overall diameter or length runs 110mm, with a secondary dimension of 44mm and a nominal wall thickness of 2mm as starting values to scale against a specific fitment. The connection method relies on a press-fit friction joint with a 0.15 to 0.20mm interference fit, printed in PLA on an FDM printer at 0.4mm nozzle and 0.16 to 0.20mm layer height, with hole diameters compensated by 0.1 to 0.15mm for roughly 0.2 percent linear shrinkage." data-full-description="This cutaway display model of a high-performance V8 engine is built as a 3D-printable design brief rather than a rendered concept alone. The cross-section plane passes through the primary moving components, exposing full cylinder banks, piston positions at different points across the combustion cycle, a cross-sectioned crankshaft housing, and the routing of internal coolant passages. Every dimension, tolerance, and connection method is specified as a parametric, production-ready brief: press-fit assembly, FDM print profile, and shrinkage-compensated tolerances, developed for classroom, workshop, or display use.">
-              <div class="thumb thumb-img-dark"><img src="images/A1.1.jpg" alt="High-Performance V8 Engine Cutaway, full assembled view showing both cylinder banks and exposed crankshaft"></div>
-              <div class="card-body">
-                <span class="card-tag">Code: A1 · 3D Print Design</span>
-                <h3>High-Performance V8 Engine Cutaway</h3>
-                <p>This cutaway display model exposes the full cylinder banks of a V8 engine layout, revealing piston positions across the combustion cycle, a cross-sectioned crankshaft housing, and the routing of internal coolant passages. Built as a parametric, production-ready 3D print brief rather than a rendered concept alone.</p>
-                <button type="button" class="card-add-cart">Add to Cart</button>
-              </div>
-            </div>
-
-            <div class="card" onclick="window.location.hash='automotive/a2';" data-sections="images/A2.2.jpg|Compact Inline-Four Engine Cutaway, full valve train view with camshaft lobes and rocker arms along the cylinder head|Design Intent|The cross-section plane, the exposed components, and the M3 screw boss with heat-set insert are treated as fixed parameters of this design. Changing which components stay exposed or how the part locates moves the piece beyond what is documented here, so the relationship between the housing and the internal valve train stays intact if the model is scaled or adapted.;images/A2.3.jpg|Compact Inline-Four Engine Cutaway, close-up detail of camshaft lobe, rocker arm, valve spring and cross-sectioned piston skirt|Geometry &amp; Construction|This part separates into the main housing volume, the partial cutaway face revealing the camshaft lobes, rocker arms, and cross-sectioned piston skirt, and the surrounding housing left intact to frame the internal detail. Blocking out the housing first carries the most modeling time, with valve train and piston detail added once the primary cutaway silhouette is confirmed.;images/A2.4.jpg|Compact Inline-Four Engine Cutaway, side-angle view showing timing chain, sprockets and intact housing with mounting boss|Printability &amp; Process Specifications|Overall diameter or length runs 121mm, with a secondary dimension of 58mm and a nominal wall thickness of 2.5mm as starting values to scale against a specific fitment. The connection method relies on an M3 screw boss with a heat-set brass insert, sized around a 4.0mm diameter boss with a 3.2mm pilot hole, printed in PETG on an FDM printer at 0.16mm layer height with at least 3 perimeter walls." data-full-description="This cutaway display model of a compact inline-four engine is built as a 3D-printable design brief rather than a rendered concept alone. The partial cutaway approach exposes the primary moving components, camshaft lobes, rocker arms, and a cross-sectioned piston skirt within the cylinder bore, while leaving enough of the housing intact to frame the internal detail. Every dimension, tolerance, and connection method is specified as a parametric, production-ready brief: M3 screw boss with heat-set insert, PETG print profile, and OEM-fit tolerances, developed for classroom, workshop, or display use.">
-              <div class="thumb thumb-img-dark"><img src="images/A2.1.jpg" alt="Compact Inline-Four Engine Cutaway, partial cutaway view showing timing chain, valve train and cross-sectioned piston"></div>
-              <div class="card-body">
-                <span class="card-tag">Code: A2 · 3D Print Design</span>
-                <h3>Compact Inline-Four Engine Cutaway</h3>
-                <p>This partial cutaway model exposes the camshaft lobes, rocker arms, and a cross-sectioned piston skirt of a compact inline-four engine, leaving the surrounding housing intact to frame the internal detail. Built as a parametric, production-ready 3D print brief rather than a rendered concept alone.</p>
-                <button type="button" class="card-add-cart">Add to Cart</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
 </main>
 
 <div id="contactPage" class="contact-page" aria-hidden="true">
@@ -1411,7 +1272,7 @@
         LinkedIn
       </a>
     </div>
-    <p class="contact-page-intro">Looking for help with a Home &amp; Decoration piece or a Custom Project (mechanical, aircraft, automotive) design? Send a message and I'll get back to you.</p>
+    <p class="contact-page-intro">Looking for help with a Home &amp; Decoration piece? Send a message and I'll get back to you.</p>
 
     <form class="contact-form" id="contactForm">
       <div class="form-row">
@@ -1516,11 +1377,6 @@
     let activeHref = null;
     if(hash === '#about') activeHref = '#about';
     else if(hash === '#contact') activeHref = '#contact';
-    else if(
-      hash === '#custom' ||
-      /^#aircraft\/c[1-9]\d*$/.test(hash) ||
-      /^#automotive\/a[1-9]\d*$/.test(hash)
-    ) activeHref = '#custom';
     // Any other hash (home, subcategory pages, product detail, cart) → no top-link active
     navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === activeHref));
   }
@@ -1542,14 +1398,10 @@
   const technical = document.getElementById('productTechnical');
   const backLink = document.getElementById('productBack');
   const backLabels = {
-    home: '← Back to Home &amp; Decoration',
-    aircraft: '← Back to Aircraft &amp; Drone',
-    custom: '← Back to Custom Projects'
+    home: '← Back to Home &amp; Decoration'
   };
 
   function showProduct(section, id){
-    closeC1();
-    closeFullProduct();
     const heroEl = document.querySelector('.hero');
     if(heroEl) heroEl.style.display = 'none';
     const cards = document.querySelectorAll('#' + section + ' .card');
@@ -1713,22 +1565,14 @@
   let currentSection = null;
 
   function applyTopLevelView(){
-    const hash = window.location.hash.toLowerCase();
-    const isCustom = (hash === '#custom');
-    const homeEl = document.getElementById('home');
-    const customEl = document.getElementById('custom');
-    if(homeEl) homeEl.style.display = isCustom ? 'none' : '';
-    if(customEl) customEl.style.display = isCustom ? '' : 'none';
     const heroEl = document.querySelector('.hero');
-    if(heroEl) heroEl.style.display = isCustom ? 'none' : '';
+    if(heroEl) heroEl.style.display = '';
   }
 
   function closeProduct(){
     page.classList.remove('page-visible');
     page.classList.remove('is-open');
     page.setAttribute('aria-hidden','true');
-    closeC1();
-    closeFullProduct();
     document.querySelectorAll('main > section').forEach(function(section){
       section.style.display='';
     });
@@ -1739,160 +1583,9 @@
     }
   }
 
-  const c1Page = document.getElementById('c1Page');
-
-  function showC1(){
-    page.classList.remove('is-open');
-    page.setAttribute('aria-hidden','true');
-    closeFullProduct();
-    const heroEl = document.querySelector('.hero');
-    if(heroEl) heroEl.style.display = 'none';
-    document.querySelectorAll('main > section').forEach(function(sec){
-      sec.style.display='none';
-    });
-    if(c1Page){
-      c1Page.classList.add('is-open');
-      c1Page.setAttribute('aria-hidden','false');
-      c1Page.classList.remove('page-visible');
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ c1Page.classList.add('page-visible'); });
-      });
-    }
-    currentSection = 'custom';
-    window.scrollTo(0,0);
-  }
-
-  function closeC1(){
-    if(c1Page){
-      c1Page.classList.remove('is-open');
-      c1Page.classList.remove('page-visible');
-      c1Page.setAttribute('aria-hidden','true');
-    }
-  }
-
-  const fullPage = document.getElementById('fullProductPage');
-  const fpMainImage = document.getElementById('fpMainImage');
-  const fpCode = document.getElementById('fpCode');
-  const fpTitle = document.getElementById('fpTitle');
-  const fpDescription = document.getElementById('fpDescription');
-  const fpRows = document.getElementById('fpRows');
-  const fpBack = document.getElementById('fullProductBack');
-
-  function closeFullProduct(){
-    if(fullPage){
-      fullPage.classList.remove('is-open');
-      fullPage.classList.remove('page-visible');
-      fullPage.setAttribute('aria-hidden','true');
-    }
-  }
-
-  function showFullProduct(card){
-    closeC1();
-    page.classList.remove('is-open');
-    page.setAttribute('aria-hidden','true');
-    const heroEl = document.querySelector('.hero');
-    if(heroEl) heroEl.style.display = 'none';
-    document.querySelectorAll('main > section').forEach(function(sec){
-      sec.style.display='none';
-    });
-
-    const img = card.querySelector('.thumb img');
-    const h3 = card.querySelector('.card-body h3');
-    const tag = card.querySelector('.card-tag');
-    const fullDesc = card.getAttribute('data-full-description');
-    const p = card.querySelector('.card-body p');
-
-    if(fpCode) fpCode.textContent = tag ? tag.textContent : '';
-    if(fpTitle) fpTitle.textContent = h3 ? h3.textContent : '';
-    if(fpDescription) fpDescription.textContent = fullDesc ? fullDesc : (p ? p.textContent : '');
-    if(fpMainImage && img){
-      fpMainImage.src = img.getAttribute('src');
-      fpMainImage.alt = img.getAttribute('alt') || '';
-    }
-    if(fpBack){
-      fpBack.href = '#custom';
-      fpBack.innerHTML = '← Back to Custom Projects';
-    }
-
-    if(fpRows){
-      fpRows.innerHTML = '';
-      const sectionsData = card.getAttribute('data-sections');
-      if(sectionsData){
-        const entries = sectionsData.split(';').map(function(s){ return s.trim(); }).filter(Boolean);
-        entries.forEach(function(entry, idx){
-          const parts = entry.split('|');
-          const src = parts[0] || '';
-          const alt = parts[1] || '';
-          const heading = parts[2] || '';
-          const text = parts[3] || '';
-          const row = document.createElement('div');
-          row.className = 'c1-row' + (idx % 2 === 0 ? ' reverse' : '');
-          const rowImg = document.createElement('div');
-          rowImg.className = 'c1-row-image';
-          const imgEl = document.createElement('img');
-          imgEl.src = src;
-          imgEl.alt = alt;
-          rowImg.appendChild(imgEl);
-          const rowText = document.createElement('div');
-          rowText.className = 'c1-row-text';
-          const h2El = document.createElement('h2');
-          h2El.textContent = heading;
-          const pEl = document.createElement('p');
-          pEl.textContent = text;
-          rowText.appendChild(h2El);
-          rowText.appendChild(pEl);
-          row.appendChild(rowImg);
-          row.appendChild(rowText);
-          fpRows.appendChild(row);
-        });
-      }
-    }
-
-    if(fullPage){
-      fullPage.classList.add('is-open');
-      fullPage.setAttribute('aria-hidden','false');
-      fullPage.classList.remove('page-visible');
-      requestAnimationFrame(function(){
-        requestAnimationFrame(function(){ fullPage.classList.add('page-visible'); });
-      });
-    }
-
-    const codeMatch = tag ? tag.textContent.match(/Code:\s*([A-Z]+\d+)/i) : null;
-    window.currentFullItem = {
-      code: codeMatch ? codeMatch[1].toUpperCase() : (h3 ? h3.textContent : 'Item'),
-      title: h3 ? h3.textContent : '',
-      image: img ? img.getAttribute('src') : ''
-    };
-    if(window.syncFullProductButtons) window.syncFullProductButtons();
-
-    currentSection = 'custom';
-    window.scrollTo(0,0);
-  }
-
-  function findCardByCode(section, id){
-    const cards = document.querySelectorAll('#' + section + ' .card');
-    let card = null;
-    cards.forEach(function(item){
-      if(card) return;
-      const tag = item.querySelector('.card-tag');
-      if(tag && tag.textContent.toLowerCase().includes('code: '+id)) card = item;
-    });
-    return card;
-  }
-
   function route(){
     const homeMatch=window.location.hash.match(/^#home\/(h[1-9]\d*)$/i);
-    const aircraftMatch=window.location.hash.match(/^#aircraft\/(c[1-9]\d*)$/i);
-    const customMatch=window.location.hash.match(/^#automotive\/(a[1-9]\d*)$/i);
     if(homeMatch) showProduct('home', homeMatch[1].toLowerCase());
-    else if(aircraftMatch && aircraftMatch[1].toLowerCase() === 'c1') showC1();
-    else if(aircraftMatch) showProduct('aircraft', aircraftMatch[1].toLowerCase());
-    else if(customMatch){
-      const id = customMatch[1].toLowerCase();
-      const card = findCardByCode('custom', id);
-      if(card && card.hasAttribute('data-sections')) showFullProduct(card);
-      else showProduct('custom', id);
-    }
     else closeProduct();
   }
 
@@ -1932,7 +1625,7 @@
   function routeSubcat(){
     const hash = window.location.hash.toLowerCase();
     if(!Object.prototype.hasOwnProperty.call(hashToSubcat, hash)){
-      // Not a Home&Decoration hash (About, Contact, Custom Projects, Cart,
+      // Not a Home&Decoration hash (About, Contact, Cart,
       // or a product detail page) — don't leave a stale category highlighted.
       navLinks.forEach(function(l){ l.classList.remove('active'); });
       return;
@@ -2112,68 +1805,6 @@
   // Re-sync whenever a product page is opened
   window.addEventListener('hashchange', syncProductButton);
 
-  // "Add to Cart" buttons on the dedicated C1 aircraft page (toggle, top and bottom)
-  const c1Item = {
-    code: 'C1',
-    title: 'Retractable wing flap cover system',
-    image: 'images/C1.1.jpg'
-  };
-  const c1Buttons = [
-    document.getElementById('c1AddToCartTop'),
-    document.getElementById('c1AddToCartBottom')
-  ].filter(Boolean);
-  function syncC1Buttons(){
-    const inCart = isInCart(c1Item.code);
-    c1Buttons.forEach(function(btn){
-      btn.classList.toggle('added', inCart);
-      const label = btn.querySelector('.c1-cart-label');
-      if(label) label.textContent = inCart ? 'Remove from Cart' : 'Add to Cart';
-    });
-  }
-  c1Buttons.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      if(isInCart(c1Item.code)){
-        removeFromCart(c1Item.code);
-      } else {
-        addToCart(c1Item);
-      }
-      syncC1Buttons();
-    });
-  });
-  window.addEventListener('hashchange', syncC1Buttons);
-  syncC1Buttons();
-
-  // "Add to Cart" buttons on generic full-layout product pages (automotive parts, toggle, top and bottom)
-  const fpButtons = [
-    document.getElementById('fpAddCartTop'),
-    document.getElementById('fpAddCartBottom')
-  ].filter(Boolean);
-  function syncFullProductButtons(){
-    const item = window.currentFullItem;
-    if(!item) return;
-    const inCart = isInCart(item.code);
-    fpButtons.forEach(function(btn){
-      btn.classList.toggle('added', inCart);
-      const label = btn.querySelector('.c1-cart-label');
-      if(label) label.textContent = inCart ? 'Remove from Cart' : 'Add to Cart';
-    });
-  }
-  fpButtons.forEach(function(btn){
-    btn.addEventListener('click', function(){
-      const item = window.currentFullItem;
-      if(!item) return;
-      if(isInCart(item.code)){
-        removeFromCart(item.code);
-      } else {
-        addToCart(item);
-      }
-      syncFullProductButtons();
-    });
-  });
-  window.addEventListener('hashchange', syncFullProductButtons);
-  window.syncFullProductButtons = syncFullProductButtons;
-  syncFullProductButtons();
-
   // Request a quote — sent via Formspree
   const FORM_ENDPOINT = 'https://formspree.io/f/mvkopewb';
   function isValidEmail(value){
@@ -2239,11 +1870,6 @@
       productPage.classList.remove('is-open');
       productPage.setAttribute('aria-hidden', 'true');
     }
-    const c1PageEl = document.getElementById('c1Page');
-    if(c1PageEl){
-      c1PageEl.classList.remove('is-open');
-      c1PageEl.setAttribute('aria-hidden', 'true');
-    }
     renderCart();
     cartPage.classList.add('is-open');
     cartPage.setAttribute('aria-hidden', 'false');
@@ -2284,11 +1910,6 @@
     if(cartPageEl){
       cartPageEl.classList.remove('is-open');
       cartPageEl.setAttribute('aria-hidden', 'true');
-    }
-    const c1PageEl = document.getElementById('c1Page');
-    if(c1PageEl){
-      c1PageEl.classList.remove('is-open');
-      c1PageEl.setAttribute('aria-hidden', 'true');
     }
     aboutPage.classList.add('is-open');
     aboutPage.setAttribute('aria-hidden', 'false');
@@ -2331,11 +1952,6 @@
     if(aboutPageEl){
       aboutPageEl.classList.remove('is-open');
       aboutPageEl.setAttribute('aria-hidden', 'true');
-    }
-    const c1PageEl = document.getElementById('c1Page');
-    if(c1PageEl){
-      c1PageEl.classList.remove('is-open');
-      c1PageEl.setAttribute('aria-hidden', 'true');
     }
     contactPage.classList.add('is-open');
     contactPage.setAttribute('aria-hidden', 'false');
