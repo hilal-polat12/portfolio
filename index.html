@@ -433,6 +433,8 @@
 .product-back:hover{color:var(--white)}
 .product-layout{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(300px,.65fr);gap:48px;align-items:start}
 .product-image{background:var(--card-bg);border:1px solid var(--line);border-radius:8px;overflow:hidden;position:relative;aspect-ratio:4/3}
+.product-image-col{display:flex;flex-direction:column;min-width:0}
+.product-image-note{color:var(--white);font-size:13px;line-height:1.5;margin:10px 0 0;font-style:italic}
 .model-watermark-overlay{
   position:absolute;
   inset:0;
@@ -613,12 +615,15 @@
   <div class="wrap">
     <a href="#home" id="productBack" class="product-back">← Back to Home &amp; Decoration</a>
     <div class="product-layout">
+      <div class="product-image-col">
       <div class="product-image">
         <img id="productImage" src="" alt="">
         <model-viewer id="productModelViewer" style="display:none; width:100%; height:100%;" camera-controls auto-rotate shadow-intensity="1" exposure="1"></model-viewer>
         <div id="productModelWatermark" class="model-watermark-overlay" style="display:none;"></div>
         <button type="button" id="productModelToggle" class="product-model-toggle" style="display:none;">View in 3D</button>
         <div id="productGallery" class="product-gallery" style="display:none;"></div>
+      </div>
+      <p class="product-image-note">Note: Color, texture, and size can be customized on request.</p>
       </div>
       <div class="product-info">
         <span id="productCode" class="product-code"></span>
