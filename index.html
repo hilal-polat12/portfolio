@@ -397,8 +397,11 @@
     .navbar-inner{display:flex;flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;height:auto;padding:8px 20px;gap:6px;}
     .navbar-inner::-webkit-scrollbar{display:none;}
     .navbar a{justify-content:center;text-align:center;padding:8px 12px;white-space:nowrap;line-height:1.2;font-size:14px;flex:0 0 auto;}
-    .topbar-inner{height:auto;min-height:64px;padding:12px 0;gap:12px;flex-wrap:wrap;}
-    .logo{font-size:19px;}
+    .topbar-inner{height:auto;min-height:64px;padding:12px 0;gap:12px;flex-wrap:nowrap;align-items:center;}
+    .wrap.topbar-inner{padding:12px 20px;}
+    .logo{font-size:19px;min-width:0;flex:1 1 auto;}
+    .top-right{flex:0 0 auto;}
+    .top-right .btn-cart{padding:9px 14px;font-size:13px;}
     .top-right{gap:8px;}
     .top-links{gap:2px;}
     .top-links a{white-space:nowrap;font-size:13.5px;padding:6px 8px;}
@@ -542,16 +545,6 @@
 .cart-quote-success{color:#c9ffd6;font-size:13px;margin-top:10px;display:none}
 .cart-quote-note{font-size:12.5px;color:var(--white);margin-top:12px}
 
-/* About page */
-.about-page{display:none;min-height:calc(100vh - 128px);padding:56px 0 80px;background:var(--red)}
-.about-page.is-open{display:block}
-.about-back{display:inline-flex;align-items:center;gap:8px;margin-bottom:32px;color:var(--white);font-size:14px;font-weight:600;text-decoration:none}
-.about-back:hover{color:var(--white)}
-.about-page h1{font-family:var(--display);font-size:clamp(28px,3.5vw,42px);font-weight:700;color:var(--white);margin-bottom:24px}
-.about-page-grid{display:grid;grid-template-columns:1.2fr 1fr;gap:48px;align-items:start}
-.about-page-text p{color:var(--white);font-size:15px;line-height:1.75;margin-bottom:16px}
-@media(max-width:1000px){.about-page-grid{grid-template-columns:1fr}}
-
 /* Contact page */
 .contact-page{display:none;min-height:calc(100vh - 128px);padding:56px 0 80px;background:var(--red)}
 .contact-page.is-open{display:block}
@@ -581,6 +574,12 @@
 .contact-form-success{color:#c9ffd6;font-size:13px;display:none}
 .contact-alt{margin-top:32px;color:var(--white);font-size:14px}
 .contact-alt a{color:var(--white);font-weight:600}
+.contact-page-grid{display:grid;grid-template-columns:minmax(0,640px) minmax(0,1fr);gap:56px;align-items:start}
+.contact-about-text p{color:var(--white);font-size:15px;line-height:1.75;margin-bottom:16px}
+.contact-page-about .spec-card{margin-top:24px}
+.contact-page-about .spec-row{gap:20px}
+.contact-page-about .spec-row span:first-child{flex-shrink:0}
+@media(max-width:1000px){.contact-page-grid{grid-template-columns:1fr;gap:40px}}
 
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
@@ -591,10 +590,6 @@
   <div class="wrap topbar-inner">
     <a href="/" class="logo" id="logoHome">Hilal Polat<span class="logo-tagline">Mechanical &amp; Industrial &amp; 3D Design Projects</span></a>
     <div class="top-right">
-      <div class="top-links">
-        <a href="#about" id="aboutLink">About</a>
-        <a href="#contact" id="contactLink">Contact</a>
-      </div>
       <a href="#cart" class="btn-cart" id="cartLink">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 4h2l1 2m0 0l2.2 9.2a1.5 1.5 0 0 0 1.46 1.15h6.9a1.5 1.5 0 0 0 1.46-1.15L20 8H6"/><circle cx="9.5" cy="19.5" r="1.3" fill="currentColor" stroke="none"/><circle cx="17" cy="19.5" r="1.3" fill="currentColor" stroke="none"/></svg>
         Cart
@@ -610,6 +605,7 @@
       <a href="#figurines" class="subcat-nav-link" data-subcat="figurines">Figurines &amp; Sculptures</a>
       <a href="#clocks" class="subcat-nav-link" data-subcat="clocks">Clocks &amp; Mirrors</a>
       <a href="#reliefs" class="subcat-nav-link" data-subcat="reliefs">Wall Reliefs &amp; Panels</a>
+      <a href="#contact" id="contactLink" class="nav-contact">Contact</a>
     </div>
   </div>
 </div>
@@ -673,25 +669,6 @@
       <p class="cart-quote-error" id="cartQuoteError">Please enter a valid email address first.</p>
       <p class="cart-quote-success" id="cartQuoteSuccess" style="display:none;">Thanks! Your request has been sent — you'll receive an email within 24 hours.</p>
       <p class="cart-quote-note">You will receive an email within 24 hours — please check your inbox.</p>
-    </div>
-  </div>
-</div>
-
-<div id="aboutPage" class="about-page" aria-hidden="true">
-  <div class="wrap">
-    <h1>About</h1>
-    <div class="about-page-grid">
-      <div class="about-page-text">
-        <p>Hilal Polat is a Mechanical &amp; Industrial &amp; 3D Designer based in Türkiye, working at the intersection of classical industrial design and applied mechanical engineering. The practice is centered on sculptural 3D-print design, where each home-decoration piece is developed as a full print-ready brief covering wall thickness, layer height, support strategy, and material selection, rather than a rendered concept alone.</p>
-        <p>CAD work runs through SolidWorks and Fusion 360 for parametric, tolerance-driven modeling of load-bearing geometry, while Blender, ZBrush, and Cinema 4D handle the organic, sculptural, and rendering side of the print catalogue. Every project is treated as an engineering problem first: the geometry has to make physical and structural sense before it becomes a finished drawing or a printable file.</p>
-      </div>
-      <div class="spec-card">
-        <div class="spec-row"><span>Based In</span><span>Türkiye</span></div>
-        <div class="spec-row"><span>Focus Areas</span><span>Home &amp; Decoration (Vases &amp; Curios, Floor Lamps, Figurines &amp; Sculptures, Clocks &amp; Mirrors, Wall Reliefs &amp; Panels)</span></div>
-        <div class="spec-row"><span>3D Tools</span><span>Blender, ZBrush, C4D</span></div>
-        <div class="spec-row"><span>CAD Tools</span><span>SolidWorks, Fusion 360</span></div>
-        <div class="spec-row"><span>Available For</span><span>Freelance / Contract</span></div>
-      </div>
     </div>
   </div>
 </div>
@@ -1485,6 +1462,8 @@
         LinkedIn
       </a>
     </div>
+    <div class="contact-page-grid">
+    <div class="contact-page-main">
     <p class="contact-page-intro">Looking for help with a Home &amp; Decoration piece? Send a message and I'll get back to you.</p>
 
     <form class="contact-form" id="contactForm">
@@ -1506,6 +1485,22 @@
       <p class="contact-form-error" id="contactFormError">Please fill in your name, a valid email, and a message.</p>
       <p class="contact-form-success" id="contactFormSuccess">Thanks! Your message has been sent — you'll receive a reply within 24 hours.</p>
     </form>
+    </div>
+
+    <aside class="contact-page-about">
+      <div class="contact-about-text">
+        <p>Hilal Polat is a Mechanical &amp; Industrial &amp; 3D Designer based in Türkiye, working at the intersection of classical industrial design and applied mechanical engineering. The practice is centered on sculptural 3D-print design, where each home-decoration piece is developed as a full print-ready brief covering wall thickness, layer height, support strategy, and material selection, rather than a rendered concept alone.</p>
+        <p>CAD work runs through SolidWorks and Fusion 360 for parametric, tolerance-driven modeling of load-bearing geometry, while Blender, ZBrush, and Cinema 4D handle the organic, sculptural, and rendering side of the print catalogue. Every project is treated as an engineering problem first: the geometry has to make physical and structural sense before it becomes a finished drawing or a printable file.</p>
+      </div>
+      <div class="spec-card">
+        <div class="spec-row"><span>Based In</span><span>Türkiye</span></div>
+        <div class="spec-row"><span>Focus Areas</span><span>Home &amp; Decoration (Vases &amp; Curios, Floor Lamps, Figurines &amp; Sculptures, Clocks &amp; Mirrors, Wall Reliefs &amp; Panels)</span></div>
+        <div class="spec-row"><span>3D Tools</span><span>Blender, ZBrush, C4D</span></div>
+        <div class="spec-row"><span>CAD Tools</span><span>SolidWorks, Fusion 360</span></div>
+        <div class="spec-row"><span>Available For</span><span>Freelance / Contract</span></div>
+      </div>
+    </aside>
+    </div>
 
   </div>
 </div>
@@ -1583,14 +1578,18 @@
   }, {threshold: 0.12, rootMargin: '0px 0px -40px 0px'});
   document.querySelectorAll('.card').forEach(card => cardObserver.observe(card));
 
+  // About page was merged into Contact: send old #about links there
+  if(window.location.hash.toLowerCase() === '#about'){
+    history.replaceState(null, '', window.location.pathname + '#contact');
+  }
+
   // Highlight active top-bar link based purely on the current hash
-  const navLinks = document.querySelectorAll('.top-links a[href^="#"]');
+  const navLinks = document.querySelectorAll('.navbar-inner a.nav-contact');
   function updateActiveNav(){
     const hash = window.location.hash.toLowerCase();
     let activeHref = null;
-    if(hash === '#about') activeHref = '#about';
-    else if(hash === '#contact') activeHref = '#contact';
-    // Any other hash (home, subcategory pages, product detail, cart) → no top-link active
+    if(hash === '#contact') activeHref = '#contact';
+    // Any other hash (home, subcategory pages, product detail, cart) → no Contact link active
     navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === activeHref));
   }
   window.addEventListener('hashchange', updateActiveNav);
@@ -2123,43 +2122,6 @@
   cartRoute();
 })();
 
-// About page
-(function(){
-  const aboutPage = document.getElementById('aboutPage');
-  if(!aboutPage) return;
-
-  function showAbout(){
-    document.querySelectorAll('main > section').forEach(function(section){
-      section.style.display = 'none';
-    });
-    const heroEl = document.querySelector('.hero');
-    if(heroEl) heroEl.style.display = 'none';
-    const productPage = document.getElementById('productPage');
-    if(productPage){
-      productPage.classList.remove('is-open');
-      productPage.setAttribute('aria-hidden', 'true');
-    }
-    const cartPageEl = document.getElementById('cartPage');
-    if(cartPageEl){
-      cartPageEl.classList.remove('is-open');
-      cartPageEl.setAttribute('aria-hidden', 'true');
-    }
-    aboutPage.classList.add('is-open');
-    aboutPage.setAttribute('aria-hidden', 'false');
-    window.scrollTo(0,0);
-  }
-  function hideAbout(){
-    aboutPage.classList.remove('is-open');
-    aboutPage.setAttribute('aria-hidden', 'true');
-  }
-  function aboutRoute(){
-    if(window.location.hash.toLowerCase() === '#about') showAbout();
-    else hideAbout();
-  }
-  window.addEventListener('hashchange', aboutRoute);
-  aboutRoute();
-})();
-
 // Contact page
 (function(){
   const contactPage = document.getElementById('contactPage');
@@ -2180,11 +2142,6 @@
     if(cartPageEl){
       cartPageEl.classList.remove('is-open');
       cartPageEl.setAttribute('aria-hidden', 'true');
-    }
-    const aboutPageEl = document.getElementById('aboutPage');
-    if(aboutPageEl){
-      aboutPageEl.classList.remove('is-open');
-      aboutPageEl.setAttribute('aria-hidden', 'true');
     }
     contactPage.classList.add('is-open');
     contactPage.setAttribute('aria-hidden', 'false');
