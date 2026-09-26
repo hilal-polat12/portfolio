@@ -856,7 +856,7 @@
             </div>
           </div>
         </div>
-        <div class="card" data-subcat="vases" data-model="models/H15.glb" data-price="25" onclick="window.location.hash='home/h15';" data-tech="Printed base-down, the round plinth gives this piece a wide, stable footprint, so most of the support work concentrates on the raised head and the two thin eye stalks. For resin printing, hollow the shell and plinth to 2-3mm with drainage holes hidden under the base; FDM prints near-solid at 20-30% infill instead. Layer height runs 0.12mm in resin to hold the carved grain across the shell spiral and the scrollwork on the plinth rim, or 0.16mm as an FDM fallback at 0.2mm nozzle. The eye stalks are the most fragile detail on the model, so keeping them at least 2mm thick, or thickening them slightly at the root, protects them during support removal and handling. Supports under the lifted head and the overhanging lip of the shell are best placed on the underside, where contact marks stay out of view. The narrow gap between the snail's foot and the plinth surface is worth checking for trapped resin or stringing, since that joint is hard to clean after curing. Finishing works best with a matte sealant rather than gloss, keeping the warm terracotta tone and carved grain readable, while a light dark wash in the shell grooves and scroll recesses adds depth. If the piece is scaled down, the scroll ornament on the plinth rim is the first detail to lose definition, so a reduced-scale test print is worth running before committing to a smaller size.">
+        <div class="card" data-subcat="vases" data-model="models/H15-web.glb" data-price="25" onclick="window.location.hash='home/h15';" data-tech="Printed base-down, the round plinth gives this piece a wide, stable footprint, so most of the support work concentrates on the raised head and the two thin eye stalks. For resin printing, hollow the shell and plinth to 2-3mm with drainage holes hidden under the base; FDM prints near-solid at 20-30% infill instead. Layer height runs 0.12mm in resin to hold the carved grain across the shell spiral and the scrollwork on the plinth rim, or 0.16mm as an FDM fallback at 0.2mm nozzle. The eye stalks are the most fragile detail on the model, so keeping them at least 2mm thick, or thickening them slightly at the root, protects them during support removal and handling. Supports under the lifted head and the overhanging lip of the shell are best placed on the underside, where contact marks stay out of view. The narrow gap between the snail's foot and the plinth surface is worth checking for trapped resin or stringing, since that joint is hard to clean after curing. Finishing works best with a matte sealant rather than gloss, keeping the warm terracotta tone and carved grain readable, while a light dark wash in the shell grooves and scroll recesses adds depth. If the piece is scaled down, the scroll ornament on the plinth rim is the first detail to lose definition, so a reduced-scale test print is worth running before committing to a smaller size.">
           <div class="thumb thumb-img-dark"><img src="images/h15-terracotta-snail-figurine.jpg" alt="Warm terracotta snail figurine render, matte clay with carved grain texture, spiral shell on a round ornamental plinth"></div>
           <div class="card-body">
             <span class="card-tag">Code: H15 · 3D Print Design</span>
@@ -1204,7 +1204,7 @@
             </div>
           </div>
         </div>
-        <div class="card" data-subcat="reliefs" data-model="models/H44.glb" data-price="75" onclick="window.location.hash='home/h44';" data-tech="At this piece's 900mm by 600mm scale, tiles no larger than 220x220mm keep each printed section within typical build volumes. The back panel holds a minimum of 3-4mm, with any raised relief detail kept above 1.5mm to survive handling, printed flat-mounted and in sections as the brief specifies, each keyed with dowels or interlocking tabs for alignment. Layer height runs 0.2mm on the panel and 0.12mm on fine relief detail like faces and texture, in PLA for indoor display. Hidden mounting brackets should be a separate reinforced insert (PETG, or a metal keyhole hanger bonded in) rather than relying on the panel alone, and a brim plus light honeycomb relief on the back face helps control warping. The vibrant earth-tone palette is easiest to apply in graduated washes that follow the scene's natural depth, darker in the foreground foliage and lighter toward the distant mountains, rather than as a single flat coat across the whole relief. The honeycomb-relief backing helps control warping across the full 900mm width, and is worth leaving exposed on a test tile to confirm it isn't visible from the front once mounted.">
+        <div class="card" data-subcat="reliefs" data-model="models/H44-web.glb" data-price="75" onclick="window.location.hash='home/h44';" data-tech="At this piece's 900mm by 600mm scale, tiles no larger than 220x220mm keep each printed section within typical build volumes. The back panel holds a minimum of 3-4mm, with any raised relief detail kept above 1.5mm to survive handling, printed flat-mounted and in sections as the brief specifies, each keyed with dowels or interlocking tabs for alignment. Layer height runs 0.2mm on the panel and 0.12mm on fine relief detail like faces and texture, in PLA for indoor display. Hidden mounting brackets should be a separate reinforced insert (PETG, or a metal keyhole hanger bonded in) rather than relying on the panel alone, and a brim plus light honeycomb relief on the back face helps control warping. The vibrant earth-tone palette is easiest to apply in graduated washes that follow the scene's natural depth, darker in the foreground foliage and lighter toward the distant mountains, rather than as a single flat coat across the whole relief. The honeycomb-relief backing helps control warping across the full 900mm width, and is worth leaving exposed on a test tile to confirm it isn't visible from the front once mounted.">
           <div class="thumb thumb-img-dark"><img src="images/h44-forest-relief-wall-art.jpg" alt="Vibrant earth-tone 3D wall relief of a forest landscape with an eagle, deer, rabbits, a river, and mountains"></div>
           <div class="card-body">
             <span class="card-tag">Code: H44 · 3D Print Design</span>
@@ -1721,16 +1721,7 @@
             modelToggle.textContent = 'View Photo';
           }
         };
-        fetch(modelSrc, { method: 'HEAD' }).then(function(res){
-          if(res.ok){ activateModel(modelSrc); return; }
-          return fetch(modelSrcFallback, { method: 'HEAD' }).then(function(res2){
-            if(res2.ok) activateModel(modelSrcFallback);
-          });
-        }).catch(function(){
-          fetch(modelSrcFallback, { method: 'HEAD' }).then(function(res2){
-            if(res2.ok) activateModel(modelSrcFallback);
-          }).catch(function(){ /* no model file yet */ });
-        });
+        resolveModelSrc(modelSrc, activateModel);
       } else {
         modelToggle.style.display = 'none';
         modelViewer.removeAttribute('src');
@@ -2252,6 +2243,18 @@
   }
 })();
 
+// Tries the given model path, then its -web.glb and -3D.glb variants, and calls back with the first one that exists
+function resolveModelSrc(src, onFound){
+  var base = src.replace(/(-web|-3D)?\.glb$/, '');
+  var candidates = [src, base + '.glb', base + '-web.glb', base + '-3D.glb'].filter(function(v, i, a){ return a.indexOf(v) === i; });
+  (function tryNext(i){
+    if(i >= candidates.length) return;
+    fetch(candidates[i], { method: 'HEAD' }).then(function(res){
+      if(res.ok) onFound(candidates[i]); else tryNext(i + 1);
+    }).catch(function(){ tryNext(i + 1); });
+  })(0);
+}
+
 // 3D badge on card thumbnails that have a model available (only if the file actually exists)
 (function(){
   document.querySelectorAll('.card[data-model]').forEach(function(card){
@@ -2274,16 +2277,7 @@
       });
       thumb.appendChild(badge);
     }
-    fetch(primarySrc, { method: 'HEAD' }).then(function(res){
-      if(res.ok){ addBadge(primarySrc); return; }
-      return fetch(fallbackSrc, { method: 'HEAD' }).then(function(res2){
-        if(res2.ok) addBadge(fallbackSrc);
-      });
-    }).catch(function(){
-      fetch(fallbackSrc, { method: 'HEAD' }).then(function(res2){
-        if(res2.ok) addBadge(fallbackSrc);
-      }).catch(function(){ /* no model file yet, skip badge */ });
-    });
+    resolveModelSrc(primarySrc, addBadge);
   });
 })();
 
